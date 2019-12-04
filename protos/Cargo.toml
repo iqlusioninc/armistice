@@ -1,0 +1,18 @@
+[package]
+name = "armistice_protos"
+description = "Armistice hardware key storage protocol buffers"
+version    = "0.0.0"
+license    = "Apache-2.0"
+authors    = ["Tony Arcieri <bascule@gmail.com>"]
+edition    = "2018"
+readme     = "README.md"
+homepage   = "https://github.com/iqlusioninc/armistice/"
+repository = "https://github.com/iqlusioninc/armistice/tree/develop/protos"
+categories = ["cryptography", "hardware-support"]
+keywords   = ["bls", "ed25519", "ecdsa", "hsm"]
+
+[dependencies]
+prost = "0.5"
+
+[package.metadata.docs.rs]
+all-features = true

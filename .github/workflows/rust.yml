@@ -27,7 +27,7 @@ jobs:
           command: check
 
   build:
-    name: Build
+    name: Build Core
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -63,13 +63,11 @@ jobs:
       - name: Install target
         run: rustup target add ${{ matrix.target }}
 
-      - name: Run cargo build
-        uses: actions-rs/cargo@v1
+      - name: Build
+        working-directory: core
         env:
           RUSTFLAGS: -D warnings
-        with:
-          command: build
-          args: --release --target ${{ matrix.target }} --no-default-features
+        run: cargo build --release --target ${{ matrix.target }} --no-default-features
 
   test:
     name: Test Suite
