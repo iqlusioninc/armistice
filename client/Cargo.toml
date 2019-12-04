@@ -1,0 +1,22 @@
+[package]
+name = "armistice"
+description = """
+Client library for Armistice: hardware private key storage for next-generation
+cryptography (e.g. BLS)
+"""
+version    = "0.0.0"
+license    = "Apache-2.0"
+authors    = ["Tony Arcieri <bascule@gmail.com>"]
+edition    = "2018"
+readme     = "README.md"
+homepage   = "https://github.com/iqlusioninc/armistice/"
+repository = "https://github.com/iqlusioninc/armistice/tree/develop/client"
+categories = ["api-bindings", "cryptography", "hardware-support"]
+keywords   = ["bls", "ed25519", "ecdsa", "hsm"]
+
+[dependencies.armistice_protos]
+version = "0"
+path = "../protos"
+
+[package.metadata.docs.rs]
+all-features = true

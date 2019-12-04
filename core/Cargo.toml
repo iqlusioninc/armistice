@@ -1,0 +1,27 @@
+[package]
+name = "armistice_core"
+description = """
+Core implementation of Armistice: hardware private key storage for
+next-generation cryptography (e.g. BLS)
+"""
+version    = "0.0.0"
+license    = "Apache-2.0"
+authors    = ["Tony Arcieri <bascule@gmail.com>"]
+edition    = "2018"
+readme     = "README.md"
+homepage   = "https://github.com/iqlusioninc/armistice/"
+repository = "https://github.com/iqlusioninc/armistice/tree/develop/core"
+categories = ["cryptography", "hardware-support", "no-std"]
+keywords   = ["bls", "ed25519", "ecdsa", "hsm"]
+
+[dependencies.armistice_protos]
+version = "0"
+path = "../protos"
+optional = true
+
+[features]
+default = ["std"]
+std = ["armistice_protos"] # TODO: no_std protos
+
+[package.metadata.docs.rs]
+all-features = true
