@@ -44,6 +44,8 @@ Please replace `[MY GITHUB USERNAME]` with the GitHub username you are sending
 the PR from, including the `@` symbol (e.g. `@defunkt`), and also replacing
 `[LEGAL NAME HERE]` with your full legal name.
 
+[See this commit for an example](https://github.com/iqlusioninc/armistice/pull/2/commits/2055e1d2).
+
 If you have concerns about including your legal name in this file but would
 still like to contribute, please [contact us] and we can discuss other potential
 arrangements.
