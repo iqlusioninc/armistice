@@ -1,5 +1,7 @@
 # Armistice <a href="https://www.iqlusion.io"><img src="https://storage.googleapis.com/iqlusion-production-web/img/logo/iqlusion-rings-sm.png" alt="iqlusion" width="24" height="24"></a>
 
+[![Build Status][build-image]][build-link]
+[![Safety Dance][safety-image]][safety-link]
 [![Apache 2.0 Licensed][license-image]][license-link]
 ![MSRV][msrv-image]
 [![Gitter Chat][gitter-image]][gitter-link]
@@ -52,6 +54,10 @@ without any additional terms or conditions.
 
 [//]: # (badges)
 
+[build-image]: https://github.com/iqlusioninc/armistice/workflows/Rust/badge.svg?branch=develop&event=push
+[build-link]: https://github.com/iqlusioninc/armistice/actions
+[safety-image]: https://img.shields.io/badge/unsafe-forbidden-success.svg
+[safety-link]: https://github.com/rust-secure-code/safety-dance/
 [license-image]: https://img.shields.io/badge/license-Apache2.0-blue.svg
 [license-link]: https://github.com/iqlusioninc/armistice/blob/develop/LICENSE
 [msrv-image]: https://img.shields.io/badge/rustc-1.39+-blue.svg
