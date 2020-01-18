@@ -27,7 +27,7 @@ jobs:
           command: check
 
   build:
-    name: Build Core
+    name: Build (core)
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -36,7 +36,7 @@ jobs:
           - thumbv7em-none-eabihf
           - wasm32-unknown-unknown
         toolchain:
-          - 1.39.0
+          - 1.40.0
           - stable
     steps:
       - name: Checkout sources
@@ -63,7 +63,7 @@ jobs:
       - name: Install target
         run: rustup target add ${{ matrix.target }}
 
-      - name: Build
+      - name: Run cargo build (core)
         working-directory: core
         env:
           RUSTFLAGS: -D warnings
@@ -78,7 +78,7 @@ jobs:
           - macos-latest
           - windows-latest
         toolchain:
-          - 1.39.0
+          - 1.40.0
           - stable
     runs-on: ${{ matrix.platform }}
     steps:
@@ -109,13 +109,11 @@ jobs:
           toolchain: ${{ matrix.toolchain }}
           override: true
 
-      - name: Run cargo test (--no-default-features)
-        uses: actions-rs/cargo@v1
+      - name: Run cargo test --no-default-features (core)
+        working-directory: core
         env:
           RUSTFLAGS: -D warnings
-        with:
-          command: test
-          args: --no-default-features --release
+        run: cargo test --no-default-features --release
 
       - name: Run cargo test
         uses: actions-rs/cargo@v1
