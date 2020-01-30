@@ -1,7 +1,7 @@
 # Authors
 
-All code in the Armistice repository is Copyright © 2019 iqlusion, except for
-contributions of individual authors below, who have agreed to license them
+All code in the Armistice repository is Copyright © 2019-2020 iqlusion, except
+for contributions of individual authors below, who have agreed to license them
 under the terms of the [Apache License, Version 2.0]
 (included in this repository in the toplevel [LICENSE] file).
 
