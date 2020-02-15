@@ -1,18 +1,19 @@
 [package]
-name = "armistice_protos"
-description = "Armistice hardware key storage protocol buffers"
+name = "armistice_schema"
+description = "Armistice message schema definitions"
 version    = "0.0.0"
 license    = "Apache-2.0"
 authors    = ["Tony Arcieri <bascule@gmail.com>"]
 edition    = "2018"
 readme     = "README.md"
 homepage   = "https://github.com/iqlusioninc/armistice/"
-repository = "https://github.com/iqlusioninc/armistice/tree/develop/protos"
+repository = "https://github.com/iqlusioninc/armistice/tree/develop/schema"
 categories = ["cryptography", "hardware-support"]
 keywords   = ["bls", "ed25519", "ecdsa", "hsm"]
 
 [dependencies]
-prost = "0.6"
+heapless = "0.5"
+veriform = { version = "0", default-features = false }
 
 [package.metadata.docs.rs]
 all-features = true

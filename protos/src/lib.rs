@@ -1,3 +1,0 @@
-//! Armistice
-
-#![no_std]

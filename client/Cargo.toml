@@ -14,9 +14,9 @@ repository = "https://github.com/iqlusioninc/armistice/tree/develop/client"
 categories = ["api-bindings", "cryptography", "hardware-support"]
 keywords   = ["bls", "ed25519", "ecdsa", "hsm"]
 
-[dependencies.armistice_protos]
+[dependencies.armistice_schema]
 version = "0"
-path = "../protos"
+path = "../schema"
 
 [package.metadata.docs.rs]
 all-features = true
