@@ -14,14 +14,9 @@ repository = "https://github.com/iqlusioninc/armistice/tree/develop/core"
 categories = ["cryptography", "hardware-support", "no-std"]
 keywords   = ["bls", "ed25519", "ecdsa", "hsm"]
 
-[dependencies.armistice_protos]
+[dependencies.armistice_schema]
 version = "0"
-path = "../protos"
-optional = true
-
-[features]
-default = ["std"]
-std = ["armistice_protos"] # TODO: no_std protos
+path = "../schema"
 
 [package.metadata.docs.rs]
 all-features = true
