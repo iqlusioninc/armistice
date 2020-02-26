@@ -1,9 +1,10 @@
 //! Armistice public keys
 
 use core::convert::TryInto;
-use veriform::{decoder::Decodable, field, Decoder, Encoder, Error, Message};
+use veriform::{field, Decodable, Decoder, Encoder, Error, Message};
 
 /// Public keys
+#[derive(Clone, Debug, Eq, PartialEq)]
 pub enum PublicKey {
     /// Ed25519 keys
     // #[field(bytes, tag = 0, size = 32)]
@@ -49,5 +50,29 @@ impl Message for PublicKey {
         match self {
             PublicKey::Ed25519(bytes) => field::length::bytes(0, true, bytes),
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::PublicKey;
+    use heapless::{consts::U64, Vec};
+    use veriform::Message;
+
+    #[test]
+    fn serialization_round_trip() {
+        let public_key = PublicKey::Ed25519([
+            0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+            24, 25, 26, 27, 28, 29, 30, 31,
+        ]);
+
+        let mut buffer: Vec<u8, U64> = Vec::new();
+        buffer.extend_from_slice(&[0u8; 64]).unwrap();
+
+        public_key.encode(&mut buffer).unwrap();
+        buffer.truncate(public_key.encoded_len());
+
+        let public_key_decoded = PublicKey::decode(&buffer).unwrap();
+        assert_eq!(public_key, public_key_decoded);
     }
 }

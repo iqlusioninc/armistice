@@ -2,12 +2,10 @@
 
 use crate::public_key::PublicKey;
 use heapless::{consts::U8, Vec};
-use veriform::{
-    decoder::{self, Decodable},
-    field, Decoder, Encoder, Error, Message,
-};
+use veriform::{decoder, field, Decodable, Decoder, Encoder, Error, Message};
 
 /// Request to provision a device
+#[derive(Clone, Debug, Eq, PartialEq)]
 pub struct ProvisionRequest {
     /// Number of signatures required to perform root key operations
     // #[field(uint64, tag = 0, critical = true, max = 8)]
