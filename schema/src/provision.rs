@@ -2,7 +2,10 @@
 
 use crate::public_key::PublicKey;
 use heapless::{consts::U8, Vec};
-use veriform::{decoder, field, Decoder, Encoder, Error, Message};
+use veriform::{
+    decoder::{self, Decodable},
+    field, Decoder, Encoder, Error, Message,
+};
 
 /// Request to provision a device
 pub struct ProvisionRequest {
@@ -11,7 +14,7 @@ pub struct ProvisionRequest {
     pub root_key_threshold: u64,
 
     /// Root keys used to manage domains
-    // #[field(vector(message), tag = 1, critical = true, max = 8)]
+    // #[field(sequence(message), tag = 1, critical = true, max = 8)]
     pub root_keys: Vec<PublicKey, U8>,
 }
 
