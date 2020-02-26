@@ -1,7 +1,7 @@
 //! Armistice public keys
 
 use core::convert::TryInto;
-use veriform::{field, Decoder, Encoder, Error, Message};
+use veriform::{decoder::Decodable, field, Decoder, Encoder, Error, Message};
 
 /// Public keys
 pub enum PublicKey {
