@@ -28,7 +28,7 @@ impl Message for Request {
 
     fn encoded_len(&self) -> usize {
         match self {
-            Request::Provision(msg) => field::length::message(0, true, msg),
+            Request::Provision(msg) => field::length::message(0, msg),
         }
     }
 }

@@ -1,7 +1,10 @@
 //! Armistice public keys
 
 use core::convert::TryInto;
-use veriform::{field, Decodable, Decoder, Encoder, Error, Message};
+use veriform::{
+    field::{self, WireType},
+    Decodable, Decoder, Encoder, Error, Message,
+};
 
 /// Public keys
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -24,13 +27,21 @@ impl Message for PublicKey {
                 slice
                     .try_into()
                     .map(PublicKey::Ed25519)
-                    .map_err(|_| Error::Decode)
+                    .map_err(|_| Error::Decode {
+                        wire_type: WireType::Bytes,
+                    })
             })?,
-            _ => return Err(Error::Decode),
+            _ => {
+                return Err(Error::Decode {
+                    wire_type: WireType::Message,
+                })
+            }
         };
 
         if !bytes.is_empty() {
-            return Err(Error::Decode);
+            return Err(Error::Decode {
+                wire_type: WireType::Message,
+            });
         }
 
         Ok(result)
@@ -48,7 +59,7 @@ impl Message for PublicKey {
 
     fn encoded_len(&self) -> usize {
         match self {
-            PublicKey::Ed25519(bytes) => field::length::bytes(0, true, bytes),
+            PublicKey::Ed25519(bytes) => field::length::bytes(0, bytes),
         }
     }
 }
