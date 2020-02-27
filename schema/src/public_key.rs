@@ -3,6 +3,7 @@
 use core::convert::TryInto;
 use veriform::{
     field::{self, WireType},
+    message::Element,
     Decodable, Decoder, Encoder, Error, Message,
 };
 
@@ -28,11 +29,13 @@ impl Message for PublicKey {
                     .try_into()
                     .map(PublicKey::Ed25519)
                     .map_err(|_| Error::Decode {
+                        element: Element::Value,
                         wire_type: WireType::Bytes,
                     })
             })?,
             _ => {
                 return Err(Error::Decode {
+                    element: Element::Tag,
                     wire_type: WireType::Message,
                 })
             }
@@ -40,6 +43,7 @@ impl Message for PublicKey {
 
         if !bytes.is_empty() {
             return Err(Error::Decode {
+                element: Element::Tag,
                 wire_type: WireType::Message,
             });
         }
