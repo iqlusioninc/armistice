@@ -125,7 +125,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 [[package]]
 name = "veriform"
 version = "0.0.1"
-source = "git+https://github.com/iqlusioninc/veriform.git?branch=develop#2032e4fc776426e3d6e7088302b5eed06f462d1d"
+source = "git+https://github.com/iqlusioninc/veriform.git?branch=develop#aae0ead894639f7001c8239c462c19ed01e7e49a"
 dependencies = [
  "displaydoc 0.1.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "vint64 0.2.1 (git+https://github.com/iqlusioninc/veriform.git?branch=develop)",
@@ -134,7 +134,7 @@ dependencies = [
 [[package]]
 name = "vint64"
 version = "0.2.1"
-source = "git+https://github.com/iqlusioninc/veriform.git?branch=develop#2032e4fc776426e3d6e7088302b5eed06f462d1d"
+source = "git+https://github.com/iqlusioninc/veriform.git?branch=develop#aae0ead894639f7001c8239c462c19ed01e7e49a"
 
 [metadata]
 "checksum as-slice 0.1.3 (registry+https://github.com/rust-lang/crates.io-index)" = "37dfb65bc03b2bc85ee827004f14a6817e04160e3b1a28931986a666a9290e70"
