@@ -7,12 +7,7 @@
 [![Gitter Chat][gitter-image]][gitter-link]
 
 Hardware private key storage for next-generation cryptography (e.g. BLS)
-
-If you are interested in contributing to this repository, please make sure to
-read the [CONTRIBUTING.md] and [CODE_OF_CONDUCT.md] files first.
-
-[CONTRIBUTING.md]: https://github.com/iqlusioninc/armistice/blob/develop/CONTRIBUTING.md
-[CODE_OF_CONDUCT.md]: https://github.com/iqlusioninc/armistice/blob/develop/CODE_OF_CONDUCT.md
+initially targeting [USB armory Mk II devices] from [F-Secure].
 
 ## Minimum Supported Rust Version
 
@@ -29,6 +24,11 @@ USE AT YOUR OWN RISK!
 
 This project is an incomplete work-in-progress in an early developmental
 stage and will not be ready to use for some time.
+
+## Contributing
+
+If you are interested in contributing to this repository, please make sure to
+read the [CONTRIBUTING.md] and [CODE_OF_CONDUCT.md] files first.
 
 ## License
 
@@ -63,3 +63,10 @@ without any additional terms or conditions.
 [msrv-image]: https://img.shields.io/badge/rustc-1.40+-blue.svg
 [gitter-image]: https://badges.gitter.im/iqlusioninc/community.svg
 [gitter-link]: https://gitter.im/iqlusioninc/community
+
+[//]: # (general links)
+
+[USB armory Mk II devices]: https://github.com/iqlusioninc/armistice/tree/develop/usbarmory
+[F-Secure]: https://foundry.f-secure.com/
+[CONTRIBUTING.md]: https://github.com/iqlusioninc/armistice/blob/develop/CONTRIBUTING.md
+[CODE_OF_CONDUCT.md]: https://github.com/iqlusioninc/armistice/blob/develop/CODE_OF_CONDUCT.md
