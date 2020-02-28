@@ -6,17 +6,14 @@
 ![MSRV][msrv-image]
 [![Gitter Chat][gitter-image]][gitter-link]
 
-Hardware private key storage for next-generation cryptography (e.g. BLS)
+Support package for running the [Armistice Core] cryptographic key storage
+application on [USB armory Mk II devices] from [F-Secure].
 
-If you are interested in contributing to this repository, please make sure to
-read the [CONTRIBUTING.md] and [CODE_OF_CONDUCT.md] files first.
-
-[CONTRIBUTING.md]: https://github.com/iqlusioninc/armistice/blob/develop/CONTRIBUTING.md
-[CODE_OF_CONDUCT.md]: https://github.com/iqlusioninc/armistice/blob/develop/CODE_OF_CONDUCT.md
+<img src="https://storage.googleapis.com/iqlusion-production-web/github/usbarmory/usbarmory-mkII.png" alt="USB armory mkII" width="375" height="175">
 
 ## Minimum Supported Rust Version
 
-Rust **1.40**
+Rust **1.42**
 
 ## Security Warning
 
@@ -29,6 +26,11 @@ USE AT YOUR OWN RISK!
 
 This project is an incomplete work-in-progress in an early developmental
 stage and will not be ready to use for some time.
+
+## Contributing
+
+If you are interested in contributing to this repository, please make sure to
+read the [CONTRIBUTING.md] and [CODE_OF_CONDUCT.md] files first.
 
 ## License
 
@@ -60,6 +62,14 @@ without any additional terms or conditions.
 [safety-link]: https://github.com/rust-secure-code/safety-dance/
 [license-image]: https://img.shields.io/badge/license-Apache2.0-blue.svg
 [license-link]: https://github.com/iqlusioninc/armistice/blob/develop/LICENSE
-[msrv-image]: https://img.shields.io/badge/rustc-1.40+-blue.svg
+[msrv-image]: https://img.shields.io/badge/rustc-1.42+-red.svg
 [gitter-image]: https://badges.gitter.im/iqlusioninc/community.svg
 [gitter-link]: https://gitter.im/iqlusioninc/community
+
+[//]: # (general links)
+
+[Armistice Core]: https://github.com/iqlusioninc/armistice/tree/develop/core
+[USB armory Mk II devices]: https://github.com/f-secure-foundry/usbarmory/wiki
+[F-Secure]: https://foundry.f-secure.com/
+[CONTRIBUTING.md]: https://github.com/iqlusioninc/armistice/blob/develop/CONTRIBUTING.md
+[CODE_OF_CONDUCT.md]: https://github.com/iqlusioninc/armistice/blob/develop/CODE_OF_CONDUCT.md
