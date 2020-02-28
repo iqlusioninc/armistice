@@ -14,9 +14,15 @@ repository = "https://github.com/iqlusioninc/armistice/tree/develop/core"
 categories = ["cryptography", "hardware-support", "no-std"]
 keywords   = ["bls", "ed25519", "ecdsa", "hsm"]
 
-[dependencies.armistice_schema]
-version = "0"
-path = "../schema"
+[dependencies]
+armistice_schema = { version = "0", path = "../schema" }
+displaydoc = { version = "0.1", default-features = false }
+ecdsa = { version = "0.4", optional = true, default-features = false, features = ["p256"] }
+heapless = "0.5"
+
+[features]
+default = ["ecdsa"]
+std = []
 
 [package.metadata.docs.rs]
 all-features = true

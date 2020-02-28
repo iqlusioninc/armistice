@@ -12,6 +12,10 @@ use veriform::{
     vint64, Decodable, Decoder, Encoder, Error, Message,
 };
 
+/// UUID type
+// TODO(tarcieri): define a builtin type for UUIDs that uses the `uuid` crate
+pub type Uuid = String<U36>;
+
 /// Request to provision a device
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Request {
@@ -29,7 +33,7 @@ pub struct Request {
 pub struct Response {
     /// UUID (deterministically) assigned at provisioning time
     // #[field(string, tag = 0, critical = true, size = 36)]
-    pub uuid: String<U36>,
+    pub uuid: Uuid,
 }
 
 // TODO(tarcieri): custom derive support for `veriform::Message`

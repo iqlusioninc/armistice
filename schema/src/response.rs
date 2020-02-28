@@ -16,6 +16,22 @@ pub enum Response {
 }
 
 // TODO(tarcieri): custom derive support for `veriform::Message`
+impl Response {
+    /// Get a provisioning request, if this is one
+    pub fn provision(&self) -> Option<&provision::Response> {
+        match self {
+            Response::Provision(provision) => Some(provision),
+        }
+    }
+}
+
+impl From<provision::Response> for Response {
+    fn from(response: provision::Response) -> Response {
+        Response::Provision(response)
+    }
+}
+
+// TODO(tarcieri): custom derive support for `veriform::Message`
 impl Message for Response {
     fn decode(bytes: impl AsRef<[u8]>) -> Result<Self, Error> {
         let mut bytes = bytes.as_ref();
