@@ -254,7 +254,7 @@ dependencies = [
 [[package]]
 name = "veriform"
 version = "0.0.1"
-source = "git+https://github.com/iqlusioninc/veriform.git?branch=develop#4c874f7fd3ed0753a723258bc9b23386da6461ba"
+source = "git+https://github.com/iqlusioninc/veriform.git?branch=develop#26710b13cc3f8e416e819d256cc10f82d8f9c683"
 dependencies = [
  "displaydoc",
  "vint64",
@@ -262,5 +262,5 @@ dependencies = [
 
 [[package]]
 name = "vint64"
-version = "0.2.1"
-source = "git+https://github.com/iqlusioninc/veriform.git?branch=develop#4c874f7fd3ed0753a723258bc9b23386da6461ba"
+version = "0.3.0"
+source = "git+https://github.com/iqlusioninc/veriform.git?branch=develop#26710b13cc3f8e416e819d256cc10f82d8f9c683"
