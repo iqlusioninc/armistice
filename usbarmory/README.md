@@ -13,7 +13,7 @@ application on [USB armory Mk II devices] from [F-Secure].
 
 ## Minimum Supported Rust Version
 
-Rust **1.42**
+- Rust **1.42**
 
 ## Security Warning
 
