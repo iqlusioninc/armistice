@@ -15,6 +15,18 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v1
 
+      - name: Cache cargo registry
+        uses: actions/cache@v1
+        with:
+          path: ~/.cargo/registry
+          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('Cargo.lock') }}
+
+      - name: Cache cargo index
+        uses: actions/cache@v1
+        with:
+          path: ~/.cargo/git
+          key: ${{ runner.os }}-cargo-index-${{ hashFiles('Cargo.lock') }}
+
       - name: Install stable toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -54,6 +66,12 @@ jobs:
           path: ~/.cargo/git
           key: ${{ runner.os }}-cargo-index-${{ hashFiles('Cargo.lock') }}
 
+      - name: Cache cargo build
+        uses: actions/cache@v1
+        with:
+          path: target
+          key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('Cargo.lock') }}
+
       - name: Install toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -63,11 +81,12 @@ jobs:
       - name: Install target
         run: rustup target add ${{ matrix.target }}
 
-      - name: Run cargo build (core)
+      - name: Run cargo build
         working-directory: core
         env:
+          CARGO_INCREMENTAL: 0
           RUSTFLAGS: -D warnings
-        run: cargo build --release --target ${{ matrix.target }} --no-default-features
+        run: cargo build --release --target ${{ matrix.target }}
 
   coverage:
     name: Code Coverage
@@ -160,6 +179,7 @@ jobs:
       - name: Run cargo test
         uses: actions-rs/cargo@v1
         env:
+          CARGO_INCREMENTAL: 0
           RUSTFLAGS: -D warnings
         with:
           command: test
@@ -168,6 +188,7 @@ jobs:
       - name: Run cargo test (--all-features)
         uses: actions-rs/cargo@v1
         env:
+          CARGO_INCREMENTAL: 0
           RUSTFLAGS: -D warnings
         with:
           command: test
