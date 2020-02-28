@@ -87,14 +87,14 @@ impl Message for ProvisionRequest {
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::ProvisionRequest;
     use crate::public_key::PublicKey;
     use heapless::{consts::U128, Vec};
     use veriform::Message;
 
-    #[test]
-    fn serialization_round_trip() {
+    /// Create an example [`ProvisionRequest`]
+    pub(crate) fn example_message() -> ProvisionRequest {
         let mut root_keys = Vec::new();
         root_keys
             .push(PublicKey::Ed25519([
@@ -109,11 +109,15 @@ mod tests {
             ]))
             .unwrap();
 
-        let provision_request = ProvisionRequest {
+        ProvisionRequest {
             root_key_threshold: 1,
             root_keys,
-        };
+        }
+    }
 
+    #[test]
+    fn serialization_round_trip() {
+        let provision_request = example_message();
         let mut buffer: Vec<u8, U128> = Vec::new();
         buffer.extend_from_slice(&[0u8; 128]).unwrap();
 
