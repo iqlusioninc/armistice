@@ -1,11 +1,12 @@
 # Armistice <a href="https://www.iqlusion.io"><img src="https://storage.googleapis.com/iqlusion-production-web/img/logo/iqlusion-rings-sm.png" alt="iqlusion" width="24" height="24"></a> [![Build Status][build-image]][build-link] [![Safety Dance][safety-image]][safety-link] [![Apache 2.0 Licensed][license-image]][license-link] ![MSRV][msrv-image] [![Gitter Chat][gitter-image]][gitter-link]
 
-Hardware private key storage for next-generation cryptography (e.g. BLS)
-initially targeting [USB armory Mk II devices] from [F-Secure].
+Hardware private key storage for next-generation cryptography (e.g. BLS).
+
+Initially targeting [USB armory Mk II devices] from [F-Secure].
 
 ## Minimum Supported Rust Version
 
-- Rust **1.40**
+- Rust **1.42**
 
 ## Security Warning
 
@@ -54,7 +55,7 @@ without any additional terms or conditions.
 [safety-link]: https://github.com/rust-secure-code/safety-dance/
 [license-image]: https://img.shields.io/badge/license-Apache2.0-blue.svg
 [license-link]: https://github.com/iqlusioninc/armistice/blob/develop/LICENSE
-[msrv-image]: https://img.shields.io/badge/rustc-1.40+-blue.svg
+[msrv-image]: https://img.shields.io/badge/rustc-1.42+-red.svg
 [gitter-image]: https://badges.gitter.im/iqlusioninc/community.svg
 [gitter-link]: https://gitter.im/iqlusioninc/community
 
