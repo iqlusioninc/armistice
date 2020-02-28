@@ -40,7 +40,7 @@ jobs:
           args: --workspace --exclude armistice_usbarmory
 
   build:
-    name: Build (core)
+    name: Build core
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -71,16 +71,14 @@ jobs:
         uses: actions/cache@v1
         with:
           path: target
-          key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('Cargo.lock') }}
+          key: ${{ runner.os }}-rust-${{ matrix.toolchain }}-${{ matrix.target }}-cargo-build-target-${{ hashFiles('Cargo.lock') }}
 
       - name: Install toolchain
         uses: actions-rs/toolchain@v1
         with:
+          target: ${{ matrix.target }}
           toolchain: ${{ matrix.toolchain }}
           override: true
-
-      - name: Install target
-        run: rustup target add ${{ matrix.target }}
 
       - name: Run cargo build
         working-directory: core
@@ -90,7 +88,7 @@ jobs:
         run: cargo build --release --target ${{ matrix.target }}
 
   build_usbarmory:
-    name: Build (usbarmory)
+    name: Build usbarmory
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
@@ -106,13 +104,13 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.cargo/git
-          key: ${{ runner.os }}-cargo-index-${{ hashFiles('Cargo.lock') }}
+          key: ${{ runner.os }}-usbarmory-cargo-index-${{ hashFiles('Cargo.lock') }}
 
       - name: Cache cargo build
         uses: actions/cache@v1
         with:
           path: target
-          key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('Cargo.lock') }}
+          key: ${{ runner.os }}-usbarmory-cargo-build-target-${{ hashFiles('Cargo.lock') }}
 
       - name: Install beta toolchain
         uses: actions-rs/toolchain@v1
@@ -147,6 +145,12 @@ jobs:
           path: ~/.cargo/git
           key: ${{ runner.os }}-cargo-index-${{ hashFiles('Cargo.lock') }}
 
+      - name: Cache cargo build
+        uses: actions/cache@v1
+        with:
+          path: target
+          key: ${{ runner.os }}-coverage-cargo-build-target-${{ hashFiles('Cargo.lock') }}
+
       - name: Install stable toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -155,6 +159,8 @@ jobs:
 
       - name: Run cargo-tarpaulin
         uses: actions-rs/tarpaulin@v0.1
+        env:
+          CARGO_INCREMENTAL: 0
         with:
           version: 0.9.0
           args: --all --exclude armistice_usbarmory -- --test-threads 1
@@ -202,7 +208,7 @@ jobs:
         uses: actions/cache@v1
         with:
           path: target
-          key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('Cargo.lock') }}
+          key: ${{ runner.os }}-rust-${{ matrix.toolchain }}-cargo-build-target-${{ hashFiles('Cargo.lock') }}
 
       - name: Install toolchain
         uses: actions-rs/toolchain@v1
@@ -213,6 +219,7 @@ jobs:
       - name: Run cargo test --no-default-features (core)
         working-directory: core
         env:
+          CARGO_INCREMENTAL: 0
           RUSTFLAGS: -D warnings
         run: cargo test --no-default-features --release
 
@@ -274,12 +281,6 @@ jobs:
         with:
           path: ~/.cargo/git
           key: ${{ runner.os }}-cargo-index-${{ hashFiles('Cargo.lock') }}
-
-      - name: Cache cargo build
-        uses: actions/cache@v1
-        with:
-          path: target
-          key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('Cargo.lock') }}
 
       - name: Install stable toolchain
         uses: actions-rs/toolchain@v1
