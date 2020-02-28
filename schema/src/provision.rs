@@ -78,8 +78,7 @@ impl Message for Request {
             .map(|msg| {
                 // compute length with additional length prefix
                 let encoded_len = msg.encoded_len();
-                vint64::encode(encoded_len as u64)
-                    .len()
+                vint64::encoded_len(encoded_len as u64)
                     .checked_add(encoded_len)
                     .unwrap()
             })
