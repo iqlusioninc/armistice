@@ -1,5 +1,10 @@
 [workspace]
-members = ["core", "client", "schema"]
+members = [
+    "core",
+    "client",
+    "schema",
+    "usbarmory"
+]
 
 [patch.crates-io]
 veriform = { git = "https://github.com/iqlusioninc/veriform.git", branch = "develop" }

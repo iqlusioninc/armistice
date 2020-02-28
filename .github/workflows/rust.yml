@@ -37,6 +37,7 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: check
+          args: --workspace --exclude armistice_usbarmory
 
   build:
     name: Build (core)
@@ -88,6 +89,45 @@ jobs:
           RUSTFLAGS: -D warnings
         run: cargo build --release --target ${{ matrix.target }}
 
+  build_usbarmory:
+    name: Build (usbarmory)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v1
+
+      - name: Cache cargo registry
+        uses: actions/cache@v1
+        with:
+          path: ~/.cargo/registry
+          key: ${{ runner.os }}-cargo-registry-${{ hashFiles('Cargo.lock') }}
+
+      - name: Cache cargo index
+        uses: actions/cache@v1
+        with:
+          path: ~/.cargo/git
+          key: ${{ runner.os }}-cargo-index-${{ hashFiles('Cargo.lock') }}
+
+      - name: Cache cargo build
+        uses: actions/cache@v1
+        with:
+          path: target
+          key: ${{ runner.os }}-cargo-build-target-${{ hashFiles('Cargo.lock') }}
+
+      - name: Install beta toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          target: armv7a-none-eabi
+          toolchain: beta
+          override: true
+
+      - name: Run cargo build
+        working-directory: usbarmory
+        env:
+          CARGO_INCREMENTAL: 0
+          RUSTFLAGS: -D warnings
+        run: cargo build --release
+
   coverage:
     name: Code Coverage
     runs-on: ubuntu-latest
@@ -116,8 +156,8 @@ jobs:
       - name: Run cargo-tarpaulin
         uses: actions-rs/tarpaulin@v0.1
         with:
-          version: '0.9.0'
-          args: '-- --test-threads 1'
+          version: 0.9.0
+          args: --all --exclude armistice_usbarmory -- --test-threads 1
 
       - name: Upload to codecov.io
         uses: codecov/codecov-action@v1.0.2
@@ -183,7 +223,7 @@ jobs:
           RUSTFLAGS: -D warnings
         with:
           command: test
-          args: --release
+          args: --release  --workspace --exclude armistice_usbarmory
 
       - name: Run cargo test (--all-features)
         uses: actions-rs/cargo@v1
@@ -192,7 +232,7 @@ jobs:
           RUSTFLAGS: -D warnings
         with:
           command: test
-          args: --all-features --release
+          args: --all-features --release  --workspace --exclude armistice_usbarmory
 
   fmt:
     name: Rustfmt
@@ -254,4 +294,4 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: clippy
-          args: -- -D warnings
+          args: --workspace --exclude armistice_usbarmory -- -D warnings

@@ -16,7 +16,7 @@ read the [CONTRIBUTING.md] and [CODE_OF_CONDUCT.md] files first.
 
 ## Minimum Supported Rust Version
 
-- Rust **1.39**
+- Rust **1.40**
 
 ## Security Warning
 
@@ -60,6 +60,6 @@ without any additional terms or conditions.
 [safety-link]: https://github.com/rust-secure-code/safety-dance/
 [license-image]: https://img.shields.io/badge/license-Apache2.0-blue.svg
 [license-link]: https://github.com/iqlusioninc/armistice/blob/develop/LICENSE
-[msrv-image]: https://img.shields.io/badge/rustc-1.39+-blue.svg
+[msrv-image]: https://img.shields.io/badge/rustc-1.40+-blue.svg
 [gitter-image]: https://badges.gitter.im/iqlusioninc/community.svg
 [gitter-link]: https://gitter.im/iqlusioninc/community
