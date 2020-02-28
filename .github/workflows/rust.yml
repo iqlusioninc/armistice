@@ -49,8 +49,7 @@ jobs:
           - thumbv7em-none-eabihf
           - wasm32-unknown-unknown
         toolchain:
-          - 1.40.0
-          - stable
+          - beta
     steps:
       - name: Checkout sources
         uses: actions/checkout@v1
@@ -185,8 +184,7 @@ jobs:
           - macos-latest
           - windows-latest
         toolchain:
-          - 1.40.0
-          - stable
+          - beta
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Checkout sources
