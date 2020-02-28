@@ -75,7 +75,7 @@ mod tests {
     use veriform::Message;
 
     #[test]
-    fn serialization_round_trip() {
+    fn encoding_round_trip() {
         let public_key = PublicKey::Ed25519([
             0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
             24, 25, 26, 27, 28, 29, 30, 31,
@@ -83,11 +83,9 @@ mod tests {
 
         let mut buffer: Vec<u8, U64> = Vec::new();
         buffer.extend_from_slice(&[0u8; 64]).unwrap();
-
         public_key.encode(&mut buffer).unwrap();
         buffer.truncate(public_key.encoded_len());
 
-        let public_key_decoded = PublicKey::decode(&buffer).unwrap();
-        assert_eq!(public_key, public_key_decoded);
+        assert_eq!(public_key, PublicKey::decode(&buffer).unwrap());
     }
 }

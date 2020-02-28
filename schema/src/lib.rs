@@ -8,5 +8,6 @@
 pub mod provision;
 pub mod public_key;
 pub mod request;
+pub mod response;
 
-pub use self::request::Request;
+pub use self::{public_key::PublicKey, request::Request, response::Response};

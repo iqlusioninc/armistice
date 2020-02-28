@@ -1,7 +1,10 @@
-//! Armistice device provisioning messages
+//! Armistice device provisioning messages: performs initial device setup
 
 use crate::public_key::PublicKey;
-use heapless::{consts::U8, Vec};
+use heapless::{
+    consts::{U36, U8},
+    String, Vec,
+};
 use veriform::{
     decoder,
     field::{self, WireType},
@@ -11,7 +14,7 @@ use veriform::{
 
 /// Request to provision a device
 #[derive(Clone, Debug, Eq, PartialEq)]
-pub struct ProvisionRequest {
+pub struct Request {
     /// Number of signatures required to perform root key operations
     // #[field(uint64, tag = 0, critical = true, max = 8)]
     pub root_key_threshold: u64,
@@ -21,8 +24,16 @@ pub struct ProvisionRequest {
     pub root_keys: Vec<PublicKey, U8>,
 }
 
+/// Response to a device being provisioned
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct Response {
+    /// UUID (deterministically) assigned at provisioning time
+    // #[field(string, tag = 0, critical = true, size = 36)]
+    pub uuid: String<U36>,
+}
+
 // TODO(tarcieri): custom derive support for `veriform::Message`
-impl Message for ProvisionRequest {
+impl Message for Request {
     fn decode(bytes: impl AsRef<[u8]>) -> Result<Self, Error> {
         let mut bytes = bytes.as_ref();
         let mut decoder = Decoder::new();
@@ -86,15 +97,41 @@ impl Message for ProvisionRequest {
     }
 }
 
+// TODO(tarcieri): custom derive support for `veriform::Message`
+impl Message for Response {
+    fn decode(bytes: impl AsRef<[u8]>) -> Result<Self, Error> {
+        let mut bytes = bytes.as_ref();
+        let mut decoder = Decoder::new();
+
+        decoder.decode_expected_header(&mut bytes, 0, WireType::String)?;
+
+        let mut uuid = String::new();
+        uuid.push_str(decoder.decode_string(&mut bytes)?)
+            .map_err(|_| Error::Length)?;
+
+        Ok(Self { uuid })
+    }
+
+    fn encode<'a>(&self, buffer: &'a mut [u8]) -> Result<&'a mut [u8], Error> {
+        let mut encoder = Encoder::new(buffer);
+        encoder.string(0, true, &self.uuid)?;
+        Ok(encoder.finish())
+    }
+
+    fn encoded_len(&self) -> usize {
+        field::length::string(0, &self.uuid)
+    }
+}
+
 #[cfg(test)]
 pub(crate) mod tests {
-    use super::ProvisionRequest;
+    use super::{Request, Response};
     use crate::public_key::PublicKey;
-    use heapless::{consts::U128, Vec};
+    use heapless::{consts::U128, String, Vec};
     use veriform::Message;
 
-    /// Create an example [`ProvisionRequest`]
-    pub(crate) fn example_message() -> ProvisionRequest {
+    /// Create an example `provision::Request`
+    pub(crate) fn example_request() -> Request {
         let mut root_keys = Vec::new();
         root_keys
             .push(PublicKey::Ed25519([
@@ -109,22 +146,41 @@ pub(crate) mod tests {
             ]))
             .unwrap();
 
-        ProvisionRequest {
+        Request {
             root_key_threshold: 1,
             root_keys,
         }
     }
 
+    /// Create an example `provision::Response`
+    pub(crate) fn example_response() -> Response {
+        let mut uuid = String::new();
+        uuid.push_str("88888888-4444-4444-4444-121212121212")
+            .unwrap();
+        Response { uuid }
+    }
+
     #[test]
-    fn serialization_round_trip() {
-        let provision_request = example_message();
+    fn request_round_trip() {
+        let request = example_request();
+
         let mut buffer: Vec<u8, U128> = Vec::new();
         buffer.extend_from_slice(&[0u8; 128]).unwrap();
+        request.encode(&mut buffer).unwrap();
+        buffer.truncate(request.encoded_len());
 
-        provision_request.encode(&mut buffer).unwrap();
-        buffer.truncate(provision_request.encoded_len());
+        assert_eq!(request, Request::decode(&buffer).unwrap());
+    }
 
-        let provision_request_decoded = ProvisionRequest::decode(&buffer).unwrap();
-        assert_eq!(provision_request, provision_request_decoded);
+    #[test]
+    fn response_round_trip() {
+        let response = example_response();
+
+        let mut buffer: Vec<u8, U128> = Vec::new();
+        buffer.extend_from_slice(&[0u8; 128]).unwrap();
+        response.encode(&mut buffer).unwrap();
+        buffer.truncate(response.encoded_len());
+
+        assert_eq!(response, Response::decode(&buffer).unwrap());
     }
 }

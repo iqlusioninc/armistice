@@ -1,4 +1,4 @@
-//! Armistice request messages
+//! Armistice response messages
 
 use crate::provision;
 use veriform::{
@@ -7,25 +7,25 @@ use veriform::{
     Decodable, Decoder, Encoder, Error, Message,
 };
 
-/// Armistice request messages
+/// Armistice response messages
 #[derive(Clone, Debug, Eq, PartialEq)]
-pub enum Request {
+pub enum Response {
     /// Perform initial device provisioning
     // #[field(message, critical = true, tag = 0)]
-    Provision(provision::Request),
+    Provision(provision::Response),
 }
 
 // TODO(tarcieri): custom derive support for `veriform::Message`
-impl Message for Request {
+impl Message for Response {
     fn decode(bytes: impl AsRef<[u8]>) -> Result<Self, Error> {
         let mut bytes = bytes.as_ref();
         let mut decoder = Decoder::new();
-        let request = match decoder.decode_header(&mut bytes)? {
+        let response = match decoder.decode_header(&mut bytes)? {
             Header {
                 tag: 0,
                 critical: true,
                 wire_type: WireType::Message,
-            } => Request::Provision(provision::Request::decode(
+            } => Response::Provision(provision::Response::decode(
                 decoder.decode_message(&mut bytes)?,
             )?),
             Header { tag, wire_type, .. } => {
@@ -37,7 +37,7 @@ impl Message for Request {
         };
 
         if bytes.is_empty() {
-            Ok(request)
+            Ok(response)
         } else {
             Err(Error::TrailingData)
         }
@@ -47,7 +47,7 @@ impl Message for Request {
         let mut encoder = Encoder::new(buffer);
 
         match self {
-            Request::Provision(msg) => encoder.message(0, true, msg)?,
+            Response::Provision(msg) => encoder.message(0, true, msg)?,
         }
 
         Ok(encoder.finish())
@@ -55,32 +55,32 @@ impl Message for Request {
 
     fn encoded_len(&self) -> usize {
         match self {
-            Request::Provision(msg) => field::length::message(0, msg),
+            Response::Provision(msg) => field::length::message(0, msg),
         }
     }
 }
 
 #[cfg(test)]
 pub(crate) mod tests {
-    use super::Request;
+    use super::Response;
     use crate::provision;
     use heapless::{consts::U128, Vec};
     use veriform::Message;
 
-    /// Create an example `Request`
-    pub(crate) fn example_message() -> Request {
-        Request::Provision(provision::tests::example_request())
+    /// Create an example `Response`
+    pub(crate) fn example_message() -> Response {
+        Response::Provision(provision::tests::example_response())
     }
 
     #[test]
     fn encoding_round_trip() {
-        let request = example_message();
+        let response = example_message();
 
         let mut buffer: Vec<u8, U128> = Vec::new();
         buffer.extend_from_slice(&[0u8; 128]).unwrap();
-        request.encode(&mut buffer).unwrap();
-        buffer.truncate(request.encoded_len());
+        response.encode(&mut buffer).unwrap();
+        buffer.truncate(response.encoded_len());
 
-        assert_eq!(request, Request::decode(&buffer).unwrap());
+        assert_eq!(response, Response::decode(&buffer).unwrap());
     }
 }
