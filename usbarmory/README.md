@@ -1,4 +1,4 @@
-# Armistice <a href="https://www.iqlusion.io"><img src="https://storage.googleapis.com/iqlusion-production-web/img/logo/iqlusion-rings-sm.png" alt="iqlusion" width="24" height="24"></a>
+# Armistice for USB armory MkII <a href="https://www.iqlusion.io"><img src="https://storage.googleapis.com/iqlusion-production-web/img/logo/iqlusion-rings-sm.png" alt="iqlusion" width="24" height="24"></a>
 
 [![Build Status][build-image]][build-link]
 [![Safety Dance][safety-image]][safety-link]
@@ -32,7 +32,7 @@ stage and will not be ready to use for some time.
 
 ## License
 
-Copyright © 2019-2020 iqlusion
+Copyright © 2020 iqlusion
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

@@ -1,0 +1,19 @@
+[package]
+name = "armistice_usbarmory"
+description = """
+Armistice for USB armory MkII: hardware private key storage application for
+next-generation cryptography (e.g. BLS)
+"""
+version    = "0.0.0"
+license    = "Apache-2.0"
+authors    = ["Tony Arcieri <bascule@gmail.com>"]
+edition    = "2018"
+readme     = "README.md"
+homepage   = "https://github.com/iqlusioninc/armistice/"
+repository = "https://github.com/iqlusioninc/armistice/tree/develop/usbarmory"
+categories = ["cryptography", "hardware-support", "no-std"]
+keywords   = ["bls", "ed25519", "ecdsa", "hsm"]
+
+[dependencies]
+armistice_core = { version = "0", path = "../core" }
+usbarmory = { version = "0", git = "https://github.com/iqlusioninc/usbarmory.rs.git", branch = "develop" }
