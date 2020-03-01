@@ -16,4 +16,10 @@ keywords   = ["bls", "ed25519", "ecdsa", "hsm"]
 
 [dependencies]
 armistice_core = { version = "0", path = "../core" }
-usbarmory = { version = "0", git = "https://github.com/iqlusioninc/usbarmory.rs.git", branch = "develop" }
+consts = { git = "https://github.com/iqlusioninc/usbarmory.rs.git", branch = "develop" }
+cortex-a-rtfm = { git = "https://github.com/iqlusioninc/usbarmory.rs.git", branch = "develop" }
+exception-reset = { git = "https://github.com/iqlusioninc/usbarmory.rs.git", branch = "develop" }
+heapless = "0.5"
+panic-serial = { git = "https://github.com/iqlusioninc/usbarmory.rs.git", branch = "develop" }
+usbarmory = { git = "https://github.com/iqlusioninc/usbarmory.rs.git", branch = "develop" }
+usb-device = "0.2"
