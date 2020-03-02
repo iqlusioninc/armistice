@@ -53,12 +53,12 @@ checksum = "08c48aae112d48ed9f069b33538ea9e3e90aa263cfa3d1c24309612b1f7472de"
 [[package]]
 name = "consts"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#6489d964c0c9b74f66f5e575ff6a02bfe41b4819"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1eb3e6e7ac8cbb3bb3cb0c73810ec28fe159c640"
 
 [[package]]
 name = "cortex-a"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#6489d964c0c9b74f66f5e575ff6a02bfe41b4819"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1eb3e6e7ac8cbb3bb3cb0c73810ec28fe159c640"
 
 [[package]]
 name = "displaydoc"
@@ -134,12 +134,12 @@ dependencies = [
 [[package]]
 name = "imx6ul-pac"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#6489d964c0c9b74f66f5e575ff6a02bfe41b4819"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1eb3e6e7ac8cbb3bb3cb0c73810ec28fe159c640"
 
 [[package]]
 name = "memlog"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#6489d964c0c9b74f66f5e575ff6a02bfe41b4819"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1eb3e6e7ac8cbb3bb3cb0c73810ec28fe159c640"
 dependencies = [
  "generic-array 0.13.2",
  "imx6ul-pac",
@@ -228,7 +228,7 @@ checksum = "0e5e2b9ba23f0d9ef7a34e498b6581c9d67944a1916542bfc7238bf1dc0d6acd"
 [[package]]
 name = "usbarmory"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#6489d964c0c9b74f66f5e575ff6a02bfe41b4819"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1eb3e6e7ac8cbb3bb3cb0c73810ec28fe159c640"
 dependencies = [
  "consts",
  "cortex-a",
@@ -244,7 +244,7 @@ dependencies = [
 [[package]]
 name = "usbarmory-rt"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#6489d964c0c9b74f66f5e575ff6a02bfe41b4819"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1eb3e6e7ac8cbb3bb3cb0c73810ec28fe159c640"
 dependencies = [
  "cortex-a",
  "imx6ul-pac",
