@@ -1,2 +1,8 @@
 [build]
 target = "armv7a-none-eabi"
+
+[target.armv7a-none-eabi]
+rustflags = [
+  "-C", "linker=flip-lld",
+  "-C", "link-arg=-Tlink.x",
+]
