@@ -1,6 +1,7 @@
 # Armistice Client <a href="https://www.iqlusion.io"><img src="https://storage.googleapis.com/iqlusion-production-web/img/logo/iqlusion-rings-sm.png" alt="iqlusion" width="24" height="24"></a> [![Build Status][build-image]][build-link] [![Safety Dance][safety-image]][safety-link] [![Apache 2.0 Licensed][license-image]][license-link] ![MSRV][msrv-image] [![Gitter Chat][gitter-image]][gitter-link]
 
-Hardware private key storage for next-generation cryptography (e.g. BLS)
+Client library for Armistice: hardware private key storage for next-generation
+cryptography (e.g. BLS).
 
 ## Minimum Supported Rust Version
 
