@@ -4,6 +4,8 @@ Hardware private key storage for next-generation cryptography (e.g. BLS).
 
 Initially targeting [USB armory Mk II devices] from [F-Secure].
 
+For a deeper dive into why we are hoping Armistice will become see [VISION.md].
+
 ## Minimum Supported Rust Version
 
 - Rust **1.42**
@@ -65,3 +67,4 @@ without any additional terms or conditions.
 [F-Secure]: https://foundry.f-secure.com/
 [CONTRIBUTING.md]: https://github.com/iqlusioninc/armistice/blob/develop/CONTRIBUTING.md
 [CODE_OF_CONDUCT.md]: https://github.com/iqlusioninc/armistice/blob/develop/CODE_OF_CONDUCT.md
+[VISION.md]:  https://github.com/iqlusioninc/armistice/blob/develop/VISION.md
