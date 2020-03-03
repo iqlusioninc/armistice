@@ -67,3 +67,4 @@ without any additional terms or conditions.
 [F-Secure]: https://foundry.f-secure.com/
 [CONTRIBUTING.md]: https://github.com/iqlusioninc/armistice/blob/develop/CONTRIBUTING.md
 [CODE_OF_CONDUCT.md]: https://github.com/iqlusioninc/armistice/blob/develop/CODE_OF_CONDUCT.md
+[VISION.md]:  https://github.com/iqlusioninc/armistice/blob/develop/VISION.md
