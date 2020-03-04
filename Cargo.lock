@@ -482,7 +482,7 @@ checksum = "3fc439f2794e98976c88a2a2dafce96b930fe8010b0a256b3c2199a773933168"
 [[package]]
 name = "veriform"
 version = "0.0.1"
-source = "git+https://github.com/iqlusioninc/veriform.git?branch=develop#26710b13cc3f8e416e819d256cc10f82d8f9c683"
+source = "git+https://github.com/iqlusioninc/veriform.git?branch=develop#b84ba5cdff3d33b3bd034e6585de0fbccd730ec7"
 dependencies = [
  "displaydoc",
  "vint64",
@@ -491,7 +491,7 @@ dependencies = [
 [[package]]
 name = "vint64"
 version = "0.3.0"
-source = "git+https://github.com/iqlusioninc/veriform.git?branch=develop#26710b13cc3f8e416e819d256cc10f82d8f9c683"
+source = "git+https://github.com/iqlusioninc/veriform.git?branch=develop#b84ba5cdff3d33b3bd034e6585de0fbccd730ec7"
 
 [[package]]
 name = "winapi"

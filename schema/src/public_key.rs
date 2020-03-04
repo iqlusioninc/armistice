@@ -51,7 +51,7 @@ impl Message for PublicKey {
         Ok(result)
     }
 
-    fn encode<'a>(&self, buffer: &'a mut [u8]) -> Result<&'a mut [u8], Error> {
+    fn encode<'a>(&self, buffer: &'a mut [u8]) -> Result<&'a [u8], Error> {
         let mut encoder = Encoder::new(buffer);
 
         match self {
