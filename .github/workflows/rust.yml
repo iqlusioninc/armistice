@@ -45,8 +45,8 @@ jobs:
     strategy:
       matrix:
         target:
-          - armv7-unknown-linux-musleabihf
-          - thumbv7em-none-eabihf
+          - armv7a-none-eabi
+          - thumbv7em-none-eabi
           - wasm32-unknown-unknown
         toolchain:
           - beta

@@ -24,6 +24,19 @@ stage and will not be ready to use for some time.
 If you are interested in contributing to this repository, please make sure to
 read the [CONTRIBUTING.md] and [CODE_OF_CONDUCT.md] files first.
 
+### Running tests
+
+This crate includes tests which run interactively against a USB armory MkII
+device which is expected to be running Armistice Core built from the same
+commit as the client tests.
+
+Since we can't run these tests in CI (since there's no device to communicate
+with) these tests are flagged with `#[ignore]` and must be run with:
+
+```
+$ cargo test -- --ignored
+```
+
 ## License
 
 Copyright © 2019-2020 iqlusion
