@@ -68,7 +68,7 @@ impl Message for Request {
         })
     }
 
-    fn encode<'a>(&self, buffer: &'a mut [u8]) -> Result<&'a mut [u8], Error> {
+    fn encode<'a>(&self, buffer: &'a mut [u8]) -> Result<&'a [u8], Error> {
         let mut encoder = Encoder::new(buffer);
         encoder.uint64(0, true, self.root_key_threshold)?;
 
@@ -115,7 +115,7 @@ impl Message for Response {
         Ok(Self { uuid })
     }
 
-    fn encode<'a>(&self, buffer: &'a mut [u8]) -> Result<&'a mut [u8], Error> {
+    fn encode<'a>(&self, buffer: &'a mut [u8]) -> Result<&'a [u8], Error> {
         let mut encoder = Encoder::new(buffer);
         encoder.string(0, true, &self.uuid)?;
         Ok(encoder.finish())
