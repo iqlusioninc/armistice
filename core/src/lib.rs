@@ -1,4 +1,5 @@
-//! Armistice Core
+//! Armistice core: cryptographic key storage and access control functionality
+//! which runs as device firmware on the USB armory MkII.
 
 #![no_std]
 #![doc(html_root_url = "https://docs.rs/armistice_core/0.0.0")]

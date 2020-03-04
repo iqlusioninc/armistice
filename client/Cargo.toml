@@ -15,10 +15,12 @@ categories = ["api-bindings", "cryptography", "hardware-support"]
 keywords   = ["bls", "ed25519", "ecdsa", "hsm"]
 
 [dependencies]
-anyhow = "1"
+anomaly = "0.2"
 armistice_schema = { version = "0", path = "../schema" }
 consts = { optional = true, git = "https://github.com/iqlusioninc/usbarmory.rs.git", branch = "develop" }
+displaydoc = { version = "0.1", default-features = false }
 rusb = { version = "0.5", optional = true }
+veriform = "0"
 
 [features]
 default = ["usbarmory"]

@@ -5,41 +5,17 @@
 //! transfers (one for each transfer sent) and then prints their contents to the
 //! console, one line per response transfer.
 
-use std::{str, time::Duration};
-
-use anyhow::bail;
+use crate::error::{self, Error};
+use anomaly::fail;
 use rusb::{DeviceHandle, Direction, GlobalContext, TransferType};
-
-/// Initialize USB, send a bulk message, and receive a response
-pub fn run(args: &[&str]) -> Result<Vec<String>, anyhow::Error> {
-    if args.is_empty() {
-        bail!("expected at least one argument")
-    }
-
-    let mut bulk = BulkPair::open(consts::VID, consts::PID)?;
-    let mut results = vec![];
-
-    for msg in args {
-        bulk.write(msg.as_bytes())?;
-        let mut buf = vec![0; bulk.in_max_packet_size().into()];
-        let resp = bulk.read(&mut buf)?;
-
-        if let Ok(s) = str::from_utf8(resp) {
-            results.push(s.to_owned());
-        } else {
-            eprintln!("{:?}", resp);
-        }
-    }
-
-    Ok(results)
-}
+use std::time::Duration;
 
 fn default_timeout() -> Duration {
     2 * consts::frame()
 }
 
 /// IN/OUT bulk endpoint pair
-struct BulkPair {
+pub(crate) struct BulkPair {
     in_ep_addr: u8,
     in_max_packet_size: u16,
 
@@ -53,7 +29,7 @@ struct BulkPair {
 impl BulkPair {
     /// Opens the USB device identified with `vid` and `pid` and claims the
     /// interface that has exactly one IN/OUT bulk endpoint pair
-    pub fn open(vid: u16, pid: u16) -> Result<Self, anyhow::Error> {
+    pub fn open(vid: u16, pid: u16) -> Result<Self, Error> {
         for dev in rusb::devices()?.iter() {
             let desc = dev.device_descriptor()?;
 
@@ -124,15 +100,23 @@ impl BulkPair {
                     }
                 }
 
-                bail!("found matching device but not a matching interface");
+                fail!(
+                    error::Kind::Usb,
+                    "found matching device but not a matching interface"
+                );
             }
         }
 
-        bail!("USB device {:04x}:{:04x} not found", vid, pid);
+        fail!(
+            error::Kind::Usb,
+            "USB device {:04x}:{:04x} not found",
+            vid,
+            pid
+        );
     }
 
     /// Reads data from the IN endpoint
-    pub fn read<'b>(&mut self, buf: &'b mut [u8]) -> Result<&'b [u8], anyhow::Error> {
+    pub fn read<'b>(&mut self, buf: &'b mut [u8]) -> Result<&'b [u8], Error> {
         let n = self.handle.read_bulk(self.in_ep_addr, buf, self.timeout)?;
         Ok(&buf[..n])
     }
@@ -147,7 +131,7 @@ impl BulkPair {
     ///
     /// *NOTE* The length of the `bytes` argument cannot exceed the endpoint
     /// maximum packet size
-    pub fn write(&mut self, bytes: &[u8]) -> Result<(), anyhow::Error> {
+    pub fn write(&mut self, bytes: &[u8]) -> Result<(), Error> {
         // XXX alternatively we could split `bytes` in `out_max_packet_size`
         // chunks
         assert!(

@@ -1,4 +1,4 @@
-//! Armistice Core State
+//! Armistice core state
 
 use crate::{
     crypto::PublicKey,
@@ -16,7 +16,7 @@ pub struct Armistice {
 
 impl Armistice {
     /// Process the given [`Request`], returning a [`Response`] or an [`Error`]
-    pub fn request(&mut self, request: Request) -> Result<Response, Error> {
+    pub fn handle_request(&mut self, request: Request) -> Result<Response, Error> {
         match request {
             Request::Provision(provision) => self
                 .provision(
@@ -33,13 +33,19 @@ impl Armistice {
         threshold: usize,
         keys: impl IntoIterator<Item = PublicKey>,
     ) -> Result<schema::provision::Response, Error> {
-        if self.root.is_empty() {
-            self.root = Root::new(threshold, keys)?;
-            Ok(schema::provision::Response {
-                uuid: self.root.uuid(),
-            })
-        } else {
-            Err(Error::Provision)
+        if self.is_provisioned() {
+            return Err(Error::Provision);
         }
+
+        self.root = Root::new(threshold, keys)?;
+
+        Ok(schema::provision::Response {
+            uuid: self.root.uuid(),
+        })
+    }
+
+    /// Are we already provisioned?
+    pub fn is_provisioned(&self) -> bool {
+        !self.root.is_empty()
     }
 }

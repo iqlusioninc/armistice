@@ -26,7 +26,7 @@ fn provisioning_happy_path() {
         root_keys,
     };
 
-    let response = armistice.request(request.into()).unwrap();
+    let response = armistice.handle_request(request.into()).unwrap();
 
     // TODO(tarcieri): stub!
     assert_eq!(

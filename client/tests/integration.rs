@@ -10,11 +10,23 @@
 #![forbid(unsafe_code)]
 #![warn(missing_docs, rust_2018_idioms, unused_qualifications)]
 
+use armistice::{
+    schema::{provision, public_key::PublicKey},
+    Armistice,
+};
+
 #[test]
 #[ignore]
-fn echo() {
-    let results = armistice::usbarmory::run(&["testing", "123"]).unwrap();
-    assert_eq!(results.len(), 2);
-    assert_eq!(results[0], "gnitset");
-    assert_eq!(results[1], "321");
+fn perform_provisioning() {
+    let mut armistice = Armistice::new().unwrap();
+
+    let mut root_keys = provision::RootKeys::new();
+    root_keys.push(PublicKey::Ed25519([0u8; 32])).unwrap();
+
+    let request = provision::Request {
+        root_key_threshold: 1,
+        root_keys,
+    };
+    let response = armistice.send_request(request).unwrap();
+    dbg!(&response);
 }
