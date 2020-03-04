@@ -16,6 +16,9 @@ use veriform::{
 // TODO(tarcieri): define a builtin type for UUIDs that uses the `uuid` crate
 pub type Uuid = String<U36>;
 
+/// Root keys collection
+pub type RootKeys = Vec<PublicKey, U8>;
+
 /// Request to provision a device
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Request {
@@ -25,7 +28,7 @@ pub struct Request {
 
     /// Root keys used to manage domains
     // #[field(sequence(message), tag = 1, critical = true, max = 8)]
-    pub root_keys: Vec<PublicKey, U8>,
+    pub root_keys: RootKeys,
 }
 
 /// Response to a device being provisioned

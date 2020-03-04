@@ -7,11 +7,12 @@
 #![deny(warnings, rust_2018_idioms, unused_qualifications)]
 #![forbid(unsafe_code)]
 
-use exception_reset as _; // default exception handler
-use heapless::{
-    pool,
-    pool::singleton::{Box, Pool},
+use armistice_core::{
+    schema::{Message, Request},
+    Armistice,
 };
+use exception_reset as _; // default exception handler
+use heapless::pool::singleton::{Box, Pool};
 use panic_serial as _; // panic handler
 use usb_device::{
     bus::{InterfaceNumber, UsbBus, UsbBusAllocator},
@@ -26,11 +27,12 @@ use usbarmory::{led::Leds, memlog, serial::Serial, usbd::Usbd};
 const MAX_PACKET_SIZE: u16 = 512;
 
 // Memory pool used for bulk packets
-pool!(P: [u8; MAX_PACKET_SIZE as usize]);
+heapless::pool!(P: [u8; MAX_PACKET_SIZE as usize]);
 
 #[rtfm::app()]
 const APP: () = {
     struct Resources {
+        armistice: Armistice,
         bulk_class: BulkClass<'static, Usbd>,
         dev: UsbDevice<'static, Usbd>,
         leds: Leds,
@@ -47,6 +49,7 @@ const APP: () = {
         // the pool will manage this memory
         P::grow(MEMORY);
 
+        let armistice = Armistice::default();
         let leds = Leds::take().expect("Leds");
         let serial = Serial::take().expect("Serial");
         let usbd = Usbd::take().expect("Usbd");
@@ -66,6 +69,7 @@ const APP: () = {
         leds.white.on();
 
         init::LateResources {
+            armistice,
             leds,
             serial,
             dev,
@@ -74,7 +78,7 @@ const APP: () = {
     }
 
     // background task that logs data to the serial port
-    #[idle(resources = [serial])]
+    #[idle(resources = [leds, serial])]
     fn idle(cx: idle::Context) -> ! {
         let serial = cx.resources.serial;
 
@@ -127,11 +131,24 @@ const APP: () = {
     }
 
     // lower priority task that performs work based on the content of the packet
-    #[task(priority = 1, spawn =[usb_tx], resources = [leds])]
+    #[task(priority = 1, spawn =[usb_tx], resources = [armistice, leds])]
     fn process_packet(cx: process_packet::Context, mut packet: Box<P>, len: usize) {
         cx.resources.leds.blue.on();
-        packet[..len].reverse();
-        cx.spawn.usb_tx(packet, len).ok().expect("OOM");
+
+        // TODO(tarcieri): better error handling
+        if let Ok(request) = Request::decode(&packet[..len]) {
+            if let Ok(response) = cx.resources.armistice.handle_request(request) {
+                if let Ok(response_len) = response.encode(&mut packet[..]).map(|bytes| bytes.len())
+                {
+                    cx.spawn.usb_tx(packet, response_len).ok().expect("OOM");
+                    cx.resources.leds.blue.off();
+                    return;
+                }
+            }
+        }
+
+        packet[..5].copy_from_slice(b"ERROR");
+        cx.spawn.usb_tx(packet, 5).ok().expect("OOM");
         cx.resources.leds.blue.off();
     }
 };
