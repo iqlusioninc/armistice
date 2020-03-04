@@ -20,7 +20,7 @@ use usb_device::{
     device::{UsbDevice, UsbDeviceBuilder, UsbVidPid},
     endpoint::{EndpointAddress, EndpointIn, EndpointOut},
 };
-use usbarmory::{memlog, serial::Serial, usbd::Usbd};
+use usbarmory::{led::Leds, memlog, serial::Serial, usbd::Usbd};
 
 /// Max packet size for bulk transfers to/from High-Speed USB devices
 const MAX_PACKET_SIZE: u16 = 512;
@@ -33,6 +33,7 @@ const APP: () = {
     struct Resources {
         bulk_class: BulkClass<'static, Usbd>,
         dev: UsbDevice<'static, Usbd>,
+        leds: Leds,
         serial: Serial,
     }
 
@@ -46,6 +47,7 @@ const APP: () = {
         // the pool will manage this memory
         P::grow(MEMORY);
 
+        let leds = Leds::take().expect("Leds");
         let serial = Serial::take().expect("Serial");
         let usbd = Usbd::take().expect("Usbd");
 
@@ -61,7 +63,10 @@ const APP: () = {
         // this first call to `poll` triggers an attach event
         dev.poll(&mut [&mut bulk_class]);
 
+        leds.white.on();
+
         init::LateResources {
+            leds,
             serial,
             dev,
             bulk_class,
@@ -84,10 +89,10 @@ const APP: () = {
 
     // main USB logic: handles enumeration, the control endpoint 0, etc
     #[task(
-    binds = USB_OTG1,
-    priority = 2,
-    resources = [dev, bulk_class],
-    spawn = [process_packet],
+        binds = USB_OTG1,
+        priority = 2,
+        resources = [dev, bulk_class],
+        spawn = [process_packet],
     )]
     fn usb(cx: usb::Context) {
         let dev = cx.resources.dev;
@@ -122,11 +127,12 @@ const APP: () = {
     }
 
     // lower priority task that performs work based on the content of the packet
-    #[task(priority = 1, spawn =[usb_tx])]
+    #[task(priority = 1, spawn =[usb_tx], resources = [leds])]
     fn process_packet(cx: process_packet::Context, mut packet: Box<P>, len: usize) {
+        cx.resources.leds.blue.on();
         packet[..len].reverse();
-
         cx.spawn.usb_tx(packet, len).ok().expect("OOM");
+        cx.resources.leds.blue.off();
     }
 };
 
