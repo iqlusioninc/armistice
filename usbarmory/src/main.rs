@@ -11,6 +11,7 @@ use armistice_core::{
     schema::{Message, Request},
     Armistice,
 };
+use core::time::Duration;
 use exception_reset as _; // default exception handler
 use heapless::pool::singleton::{Box, Pool};
 use panic_serial as _; // panic handler
@@ -21,7 +22,7 @@ use usb_device::{
     device::{UsbDevice, UsbDeviceBuilder, UsbVidPid},
     endpoint::{EndpointAddress, EndpointIn, EndpointOut},
 };
-use usbarmory::{led::Leds, memlog, serial::Serial, usbd::Usbd};
+use usbarmory::{led::Leds, memlog, serial::Serial, time::Instant, usbd::Usbd};
 
 /// Max packet size for bulk transfers to/from High-Speed USB devices
 const MAX_PACKET_SIZE: u16 = 512;
@@ -37,6 +38,7 @@ const APP: () = {
         dev: UsbDevice<'static, Usbd>,
         leds: Leds,
         serial: Serial,
+        status: StatusIndicator,
     }
 
     #[init]
@@ -50,6 +52,8 @@ const APP: () = {
         P::grow(MEMORY);
 
         let armistice = Armistice::default();
+        let status = StatusIndicator::new(!armistice.is_provisioned());
+
         let leds = Leds::take().expect("Leds");
         let serial = Serial::take().expect("Serial");
         let usbd = Usbd::take().expect("Usbd");
@@ -72,17 +76,22 @@ const APP: () = {
             armistice,
             leds,
             serial,
+            status,
             dev,
             bulk_class,
         }
     }
 
     // background task that logs data to the serial port
-    #[idle(resources = [leds, serial])]
-    fn idle(cx: idle::Context) -> ! {
+    #[idle(resources = [leds, serial, status])]
+    fn idle(mut cx: idle::Context) -> ! {
         let serial = cx.resources.serial;
 
         loop {
+            if cx.resources.status.lock(|status| status.should_blink()) {
+                cx.resources.leds.lock(|leds| leds.white.toggle());
+            }
+
             usbarmory::memlog_try_flush();
 
             if serial.try_read().is_some() {
@@ -131,7 +140,7 @@ const APP: () = {
     }
 
     // lower priority task that performs work based on the content of the packet
-    #[task(priority = 1, spawn =[usb_tx], resources = [armistice, leds])]
+    #[task(priority = 1, spawn =[usb_tx], resources = [armistice, leds, status])]
     fn process_packet(cx: process_packet::Context, mut packet: Box<P>, len: usize) {
         cx.resources.leds.blue.on();
 
@@ -141,7 +150,14 @@ const APP: () = {
                 if let Ok(response_len) = response.encode(&mut packet[..]).map(|bytes| bytes.len())
                 {
                     cx.spawn.usb_tx(packet, response_len).ok().expect("OOM");
+
+                    if cx.resources.armistice.is_provisioned() {
+                        cx.resources.status.set_blink(false);
+                        cx.resources.leds.white.on();
+                    }
+
                     cx.resources.leds.blue.off();
+
                     return;
                 }
             }
@@ -192,5 +208,58 @@ where
 
     fn endpoint_out(&mut self, addr: EndpointAddress) {
         memlog!("endpoint_out(addr={:?})", addr);
+    }
+}
+
+/// Blink rate
+const STATUS_BLINK_RATE: Duration = Duration::from_millis(500);
+
+/// Status indicator for whether the device is provisioned
+pub struct StatusIndicator {
+    /// How frequently to blink (if at all)
+    blink_interval: Option<Duration>,
+
+    /// Last time when the device blinked
+    last_blinked: Instant,
+}
+
+impl StatusIndicator {
+    /// Create a new status indicator
+    fn new(blinking: bool) -> Self {
+        let blink_interval = if blinking {
+            Some(STATUS_BLINK_RATE)
+        } else {
+            None
+        };
+
+        let last_blinked = Instant::now();
+
+        StatusIndicator {
+            blink_interval,
+            last_blinked,
+        }
+    }
+
+    /// Set whether or not the LED should blink
+    fn set_blink(&mut self, blinking: bool) {
+        self.blink_interval = if blinking {
+            Some(STATUS_BLINK_RATE)
+        } else {
+            None
+        };
+    }
+
+    /// Blink the given LED if appropriate
+    fn should_blink(&mut self) -> bool {
+        if let Some(blink_interval) = self.blink_interval {
+            let now = Instant::now();
+
+            if now.duration_since(self.last_blinked) >= blink_interval {
+                self.last_blinked = now;
+                return true;
+            }
+        }
+
+        false
     }
 }
