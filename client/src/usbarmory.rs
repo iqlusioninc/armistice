@@ -5,19 +5,19 @@
 //! transfers (one for each transfer sent) and then prints their contents to the
 //! console, one line per response transfer.
 
-use std::{env, str, time::Duration};
+use std::{str, time::Duration};
 
 use anyhow::bail;
 use rusb::{DeviceHandle, Direction, GlobalContext, TransferType};
 
-pub fn run() -> Result<(), anyhow::Error> {
-    let args = env::args().skip(1).collect::<Vec<_>>();
-
+/// Initialize USB, send a bulk message, and receive a response
+pub fn run(args: &[&str]) -> Result<Vec<String>, anyhow::Error> {
     if args.is_empty() {
         bail!("expected at least one argument")
     }
 
     let mut bulk = BulkPair::open(consts::VID, consts::PID)?;
+    let mut results = vec![];
 
     for msg in args {
         bulk.write(msg.as_bytes())?;
@@ -25,13 +25,13 @@ pub fn run() -> Result<(), anyhow::Error> {
         let resp = bulk.read(&mut buf)?;
 
         if let Ok(s) = str::from_utf8(resp) {
-            println!("{}", s)
+            results.push(s.to_owned());
         } else {
-            println!("{:?}", resp)
+            eprintln!("{:?}", resp);
         }
     }
 
-    Ok(())
+    Ok(results)
 }
 
 fn default_timeout() -> Duration {
