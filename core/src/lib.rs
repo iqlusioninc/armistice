@@ -12,7 +12,7 @@ extern crate std;
 mod armistice;
 pub mod crypto;
 mod error;
-mod root;
+pub mod root;
 
 pub use armistice_schema as schema;
 pub use heapless::{self, String, Vec};

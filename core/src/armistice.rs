@@ -1,20 +1,57 @@
 //! Armistice core state
 
 use crate::{
-    crypto::PublicKey,
+    crypto::{
+        public_key::PublicKey,
+        root_key::{Ctr, RootKey},
+    },
     error::Error,
-    root::Root,
+    root,
     schema::{self, Request, Response},
+};
+use block_cipher_trait::{
+    generic_array::{typenum::U16, ArrayLength, GenericArray},
+    BlockCipher,
 };
 
 /// Armistice Core State
-#[derive(Debug, Default)]
-pub struct Armistice {
+pub struct Armistice<B, C>
+where
+    B: BlockCipher<BlockSize = U16>,
+    B::ParBlocks: ArrayLength<GenericArray<u8, B::BlockSize>>,
+    C: Ctr<B>,
+{
     /// Root configuration
-    root: Root,
+    root_config: root::Config,
+
+    /// Root symmetric key
+    root_key: RootKey<B, C>,
 }
 
-impl Armistice {
+impl<B, C> Armistice<B, C>
+where
+    B: BlockCipher<BlockSize = U16>,
+    B::ParBlocks: ArrayLength<GenericArray<u8, B::BlockSize>>,
+    C: Ctr<B>,
+{
+    /// Create new [`Armistice`] core state
+    pub fn new(root_key: B) -> Self {
+        Self {
+            root_config: root::Config::default(),
+            root_key: root_key.into(),
+        }
+    }
+
+    /// Get the [`root::Config`]
+    pub fn root_config(&self) -> &root::Config {
+        &self.root_config
+    }
+
+    /// Get the [`RootKey`]
+    pub fn root_key(&self) -> &RootKey<B, C> {
+        &self.root_key
+    }
+
     /// Process the given [`Request`], returning a [`Response`] or an [`Error`]
     pub fn handle_request(&mut self, request: Request) -> Result<Response, Error> {
         match request {
@@ -37,15 +74,15 @@ impl Armistice {
             return Err(Error::Provision);
         }
 
-        self.root = Root::new(threshold, keys)?;
+        self.root_config = root::Config::new(threshold, keys)?;
 
         Ok(schema::provision::Response {
-            uuid: self.root.uuid(),
+            uuid: self.root_config.uuid(),
         })
     }
 
     /// Are we already provisioned?
     pub fn is_provisioned(&self) -> bool {
-        !self.root.is_empty()
+        !self.root_config.is_empty()
     }
 }
