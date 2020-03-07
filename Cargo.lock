@@ -30,7 +30,7 @@ dependencies = [
 [[package]]
 name = "aes-gcm-siv"
 version = "0.3.0"
-source = "git+https://github.com/RustCrypto/AEADs.git#607ee849824ae41f12f6c7b48daa49e68d6c1c97"
+source = "git+https://github.com/RustCrypto/AEADs.git#282133113bc0f8bf13888f5af454a0596f7fae9f"
 dependencies = [
  "aead",
  "block-cipher-trait",

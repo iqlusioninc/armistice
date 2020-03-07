@@ -1,11 +1,10 @@
 //! Provisioning integration test
 
 use aes::{block_cipher_trait::BlockCipher, Aes128};
-use aes_gcm_siv::ctr::Ctr32x8;
 use armistice_core::Vec;
 use armistice_schema::{provision, public_key::PublicKey};
 
-type Armistice = armistice_core::Armistice<Aes128, Ctr32x8<Aes128>>;
+type Armistice = armistice_core::Armistice<Aes128>;
 
 #[test]
 fn provisioning_happy_path() {

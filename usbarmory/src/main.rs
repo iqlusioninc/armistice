@@ -7,10 +7,7 @@
 #![deny(warnings, rust_2018_idioms, unused_qualifications)]
 #![forbid(unsafe_code)]
 
-use armistice_core::{
-    crypto::root_key::Ctr32,
-    schema::{Message, Request},
-};
+use armistice_core::schema::{Message, Request};
 use core::time::Duration;
 use exception_reset as _; // default exception handler
 use heapless::pool::singleton::{Box, Pool};
@@ -31,7 +28,7 @@ const MAX_PACKET_SIZE: u16 = 512;
 heapless::pool!(P: [u8; MAX_PACKET_SIZE as usize]);
 
 /// Armistice instantiated with USB armory types
-type Armistice = armistice_core::Armistice<Aes128, Ctr32<Aes128>>;
+type Armistice = armistice_core::Armistice<Aes128>;
 
 #[rtfm::app()]
 const APP: () = {

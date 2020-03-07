@@ -1,10 +1,7 @@
 //! Armistice core state
 
 use crate::{
-    crypto::{
-        public_key::PublicKey,
-        root_key::{Ctr, RootKey},
-    },
+    crypto::{PublicKey, RootKey},
     error::Error,
     root,
     schema::{self, Request, Response},
@@ -15,24 +12,22 @@ use block_cipher_trait::{
 };
 
 /// Armistice Core State
-pub struct Armistice<B, C>
+pub struct Armistice<B>
 where
     B: BlockCipher<BlockSize = U16>,
     B::ParBlocks: ArrayLength<GenericArray<u8, B::BlockSize>>,
-    C: Ctr<B>,
 {
     /// Root configuration
     root_config: root::Config,
 
     /// Root symmetric key
-    root_key: RootKey<B, C>,
+    root_key: RootKey<B>,
 }
 
-impl<B, C> Armistice<B, C>
+impl<B> Armistice<B>
 where
     B: BlockCipher<BlockSize = U16>,
     B::ParBlocks: ArrayLength<GenericArray<u8, B::BlockSize>>,
-    C: Ctr<B>,
 {
     /// Create new [`Armistice`] core state
     pub fn new(root_key: B) -> Self {
@@ -48,7 +43,7 @@ where
     }
 
     /// Get the [`RootKey`]
-    pub fn root_key(&self) -> &RootKey<B, C> {
+    pub fn root_key(&self) -> &RootKey<B> {
         &self.root_key
     }
 
