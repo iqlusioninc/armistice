@@ -14,7 +14,7 @@ pub(crate) type MaxKeys = heapless::consts::U8;
 /// Root configuration: controls sensitive administrative authority
 // TODO(tarcieri): extract type for threshold key sets
 #[derive(Debug, Default)]
-pub(crate) struct Root {
+pub struct Config {
     /// Threshold for number of keys required to perform a root action
     threshold: usize,
 
@@ -22,7 +22,7 @@ pub(crate) struct Root {
     public_keys: Vec<PublicKey, MaxKeys>,
 }
 
-impl Root {
+impl Config {
     /// Create new [`Root`] configuration
     pub fn new(threshold: usize, keys: impl IntoIterator<Item = PublicKey>) -> Result<Self, Error> {
         let mut public_keys = Vec::new();
@@ -35,13 +35,13 @@ impl Root {
             return Err(Error::Threshold);
         }
 
-        Ok(Root {
+        Ok(Config {
             threshold,
             public_keys,
         })
     }
 
-    /// Is the [`Root`] role presently empty? (i.e. unprovisioned)
+    /// Is the root [`Config`] presently empty? (i.e. unprovisioned)
     pub fn is_empty(&self) -> bool {
         self.threshold == 0
     }

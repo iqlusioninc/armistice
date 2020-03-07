@@ -7,6 +7,60 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5d2e7343e7fc9de883d1b0341e0b13970f764c14101234857d2ddafa1cb1cac2"
 
 [[package]]
+name = "aead"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4cf01b9b56e767bb57b94ebf91a58b338002963785cdd7013e21c0d4679471e4"
+dependencies = [
+ "generic-array 0.12.3",
+ "heapless",
+]
+
+[[package]]
+name = "aes"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "54eb1d8fe354e5fc611daf4f2ea97dd45a765f4f1e4512306ec183ae2e8f20c9"
+dependencies = [
+ "aes-soft",
+ "aesni",
+ "block-cipher-trait",
+]
+
+[[package]]
+name = "aes-gcm-siv"
+version = "0.3.0"
+source = "git+https://github.com/RustCrypto/AEADs.git#607ee849824ae41f12f6c7b48daa49e68d6c1c97"
+dependencies = [
+ "aead",
+ "block-cipher-trait",
+ "polyval",
+ "subtle",
+ "zeroize",
+]
+
+[[package]]
+name = "aes-soft"
+version = "0.3.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cfd7e7ae3f9a1fb5c03b389fc6bb9a51400d0c13053f0dca698c832bfd893a0d"
+dependencies = [
+ "block-cipher-trait",
+ "byteorder",
+ "opaque-debug",
+]
+
+[[package]]
+name = "aesni"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2f70a6b5f971e473091ab7cfb5ffac6cde81666c4556751d8d5620ead8abf100"
+dependencies = [
+ "block-cipher-trait",
+ "opaque-debug",
+]
+
+[[package]]
 name = "anomaly"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -31,7 +85,10 @@ dependencies = [
 name = "armistice_core"
 version = "0.0.0"
 dependencies = [
+ "aes",
+ "aes-gcm-siv",
  "armistice_schema",
+ "block-cipher-trait",
  "displaydoc",
  "ecdsa",
  "heapless",
@@ -58,6 +115,12 @@ dependencies = [
  "usb-device",
  "usbarmory",
 ]
+
+[[package]]
+name = "arrayref"
+version = "0.3.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a4c527152e37cf757a3f78aae5a06fbeefdb07ccc535c980a3208ee3060dd544"
 
 [[package]]
 name = "as-slice"
@@ -114,6 +177,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f59bbe95d4e52a6398ec21238d31577f2b28a9d86807f06ca59d191d8440d0bb"
 
 [[package]]
+name = "block-cipher-trait"
+version = "0.6.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1c924d49bd09e7c06003acda26cd9742e796e34282ec6c1189404dee0c1f4774"
+dependencies = [
+ "generic-array 0.12.3",
+]
+
+[[package]]
 name = "byteorder"
 version = "1.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -134,17 +206,17 @@ checksum = "4785bdd1c96b2a846b2bd7cc02e86b6b3dbf14e7e53446c4f54c92a361040822"
 [[package]]
 name = "consts"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1eb3e6e7ac8cbb3bb3cb0c73810ec28fe159c640"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#55f5db04c2a7cba3db6e47d18ed09bbbedca118f"
 
 [[package]]
 name = "cortex-a"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1eb3e6e7ac8cbb3bb3cb0c73810ec28fe159c640"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#55f5db04c2a7cba3db6e47d18ed09bbbedca118f"
 
 [[package]]
 name = "cortex-a-rtfm"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1eb3e6e7ac8cbb3bb3cb0c73810ec28fe159c640"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#55f5db04c2a7cba3db6e47d18ed09bbbedca118f"
 dependencies = [
  "cortex-a",
  "cortex-a-rtfm-macros",
@@ -157,7 +229,7 @@ dependencies = [
 [[package]]
 name = "cortex-a-rtfm-macros"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1eb3e6e7ac8cbb3bb3cb0c73810ec28fe159c640"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#55f5db04c2a7cba3db6e47d18ed09bbbedca118f"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -210,7 +282,7 @@ dependencies = [
 [[package]]
 name = "exception-reset"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1eb3e6e7ac8cbb3bb3cb0c73810ec28fe159c640"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#55f5db04c2a7cba3db6e47d18ed09bbbedca118f"
 dependencies = [
  "cortex-a",
  "usbarmory",
@@ -269,7 +341,7 @@ dependencies = [
 [[package]]
 name = "imx6ul-pac"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1eb3e6e7ac8cbb3bb3cb0c73810ec28fe159c640"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#55f5db04c2a7cba3db6e47d18ed09bbbedca118f"
 
 [[package]]
 name = "indexmap"
@@ -315,11 +387,17 @@ dependencies = [
 [[package]]
 name = "memlog"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1eb3e6e7ac8cbb3bb3cb0c73810ec28fe159c640"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#55f5db04c2a7cba3db6e47d18ed09bbbedca118f"
 dependencies = [
  "generic-array 0.13.2",
  "imx6ul-pac",
 ]
+
+[[package]]
+name = "opaque-debug"
+version = "0.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2839e79665f131bdb5782e51f2c6c9599c133c6098982a54c794358bf432529c"
 
 [[package]]
 name = "p256"
@@ -333,7 +411,7 @@ dependencies = [
 [[package]]
 name = "panic-serial"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1eb3e6e7ac8cbb3bb3cb0c73810ec28fe159c640"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#55f5db04c2a7cba3db6e47d18ed09bbbedca118f"
 dependencies = [
  "cortex-a",
  "usbarmory",
@@ -346,6 +424,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "05da548ad6865900e60eaba7f589cc0783590a92e940c26953ff81ddbab2d677"
 
 [[package]]
+name = "polyval"
+version = "0.3.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7ec3341498978de3bfd12d1b22f1af1de22818f5473a11e8a6ef997989e3a212"
+dependencies = [
+ "cfg-if",
+ "universal-hash",
+]
+
+[[package]]
 name = "proc-macro2"
 version = "1.0.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -356,9 +444,9 @@ dependencies = [
 
 [[package]]
 name = "quote"
-version = "1.0.2"
+version = "1.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "053a8c8bcc71fcce321828dc897a98ab9760bef03a4fc36693c231e5b3216cfe"
+checksum = "2bdc6c187c65bca4260c9011c9e3132efe4909da44726bad24cf7572ae338d7f"
 dependencies = [
  "proc-macro2",
 ]
@@ -481,6 +569,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "826e7639553986605ec5979c7dd957c7895e93eabed50ab2ffa7f6128a75097c"
 
 [[package]]
+name = "universal-hash"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "df0c900f2f9b4116803415878ff48b63da9edb268668e08cf9292d7503114a01"
+dependencies = [
+ "generic-array 0.12.3",
+ "subtle",
+]
+
+[[package]]
 name = "usb-device"
 version = "0.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -489,8 +587,10 @@ checksum = "0e5e2b9ba23f0d9ef7a34e498b6581c9d67944a1916542bfc7238bf1dc0d6acd"
 [[package]]
 name = "usbarmory"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1eb3e6e7ac8cbb3bb3cb0c73810ec28fe159c640"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#55f5db04c2a7cba3db6e47d18ed09bbbedca118f"
 dependencies = [
+ "arrayref",
+ "block-cipher-trait",
  "consts",
  "cortex-a",
  "heapless",
@@ -505,7 +605,7 @@ dependencies = [
 [[package]]
 name = "usbarmory-rt"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1eb3e6e7ac8cbb3bb3cb0c73810ec28fe159c640"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#55f5db04c2a7cba3db6e47d18ed09bbbedca118f"
 dependencies = [
  "cortex-a",
  "imx6ul-pac",
@@ -570,3 +670,9 @@ checksum = "244c3741f4240ef46274860397c7c74e50eb23624996930e484c16679633a54c"
 dependencies = [
  "libc",
 ]
+
+[[package]]
+name = "zeroize"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3cbac2ed2ba24cc90f5e06485ac8c7c1e5449fe8911aef4d8877218af021a5b8"

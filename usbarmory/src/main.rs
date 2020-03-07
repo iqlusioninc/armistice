@@ -8,8 +8,8 @@
 #![forbid(unsafe_code)]
 
 use armistice_core::{
+    crypto::root_key::Ctr32,
     schema::{Message, Request},
-    Armistice,
 };
 use core::time::Duration;
 use exception_reset as _; // default exception handler
@@ -22,13 +22,16 @@ use usb_device::{
     device::{UsbDevice, UsbDeviceBuilder, UsbVidPid},
     endpoint::{EndpointAddress, EndpointIn, EndpointOut},
 };
-use usbarmory::{led::Leds, memlog, serial::Serial, time::Instant, usbd::Usbd};
+use usbarmory::{dcp::Aes128, led::Leds, memlog, serial::Serial, time::Instant, usbd::Usbd};
 
 /// Max packet size for bulk transfers to/from High-Speed USB devices
 const MAX_PACKET_SIZE: u16 = 512;
 
 // Memory pool used for bulk packets
 heapless::pool!(P: [u8; MAX_PACKET_SIZE as usize]);
+
+/// Armistice instantiated with USB armory types
+type Armistice = armistice_core::Armistice<Aes128, Ctr32<Aes128>>;
 
 #[rtfm::app()]
 const APP: () = {
@@ -51,7 +54,7 @@ const APP: () = {
         // the pool will manage this memory
         P::grow(MEMORY);
 
-        let armistice = Armistice::default();
+        let armistice = Armistice::new(Aes128::new_unique());
         let status = StatusIndicator::new(!armistice.is_provisioned());
 
         let leds = Leds::take().expect("Leds");

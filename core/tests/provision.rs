@@ -1,11 +1,23 @@
 //! Provisioning integration test
 
-use armistice_core::{Armistice, Vec};
+use aes::{block_cipher_trait::BlockCipher, Aes128};
+use aes_gcm_siv::ctr::Ctr32x8;
+use armistice_core::Vec;
 use armistice_schema::{provision, public_key::PublicKey};
+
+type Armistice = armistice_core::Armistice<Aes128, Ctr32x8<Aes128>>;
 
 #[test]
 fn provisioning_happy_path() {
-    let mut armistice = Armistice::default();
+    let root_encryption_key = Aes128::new(
+        &[
+            0xde, 0xad, 0xbe, 0xef, 0xde, 0xad, 0xbe, 0xef, 0xde, 0xad, 0xbe, 0xef, 0xde, 0xad,
+            0xbe, 0xef,
+        ]
+        .into(),
+    );
+
+    let mut armistice = Armistice::new(root_encryption_key);
     let mut root_keys = Vec::new();
 
     root_keys
