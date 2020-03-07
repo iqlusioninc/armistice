@@ -7,7 +7,6 @@ members = [
 ]
 
 [patch.crates-io]
-aes-gcm-siv = { git = "https://github.com/RustCrypto/AEADs.git" }
 veriform = { git = "https://github.com/iqlusioninc/veriform.git", branch = "develop" }
 
 [profile.release]
