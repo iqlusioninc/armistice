@@ -51,7 +51,8 @@ const APP: () = {
         // the pool will manage this memory
         P::grow(MEMORY);
 
-        let armistice = Armistice::new(Aes128::new_unique());
+        let armistice =
+            Armistice::new(Aes128::new_unique().expect("couldn't get channel for UNIQUE key"));
         let status = StatusIndicator::new(!armistice.is_provisioned());
 
         let leds = Leds::take().expect("Leds");
