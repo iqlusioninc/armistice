@@ -207,17 +207,17 @@ checksum = "4785bdd1c96b2a846b2bd7cc02e86b6b3dbf14e7e53446c4f54c92a361040822"
 [[package]]
 name = "consts"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#49b6a19784a380a724cd28299cf84c7f4cd6cc83"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1cfa8e79d5f0a56abe6108ad62b5338a827ed753"
 
 [[package]]
 name = "cortex-a"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#49b6a19784a380a724cd28299cf84c7f4cd6cc83"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1cfa8e79d5f0a56abe6108ad62b5338a827ed753"
 
 [[package]]
 name = "cortex-a-rtfm"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#49b6a19784a380a724cd28299cf84c7f4cd6cc83"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1cfa8e79d5f0a56abe6108ad62b5338a827ed753"
 dependencies = [
  "cortex-a",
  "cortex-a-rtfm-macros",
@@ -230,7 +230,7 @@ dependencies = [
 [[package]]
 name = "cortex-a-rtfm-macros"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#49b6a19784a380a724cd28299cf84c7f4cd6cc83"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1cfa8e79d5f0a56abe6108ad62b5338a827ed753"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -292,7 +292,7 @@ dependencies = [
 [[package]]
 name = "exception-reset"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#49b6a19784a380a724cd28299cf84c7f4cd6cc83"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1cfa8e79d5f0a56abe6108ad62b5338a827ed753"
 dependencies = [
  "cortex-a",
  "usbarmory",
@@ -351,7 +351,7 @@ dependencies = [
 [[package]]
 name = "imx6ul-pac"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#49b6a19784a380a724cd28299cf84c7f4cd6cc83"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1cfa8e79d5f0a56abe6108ad62b5338a827ed753"
 
 [[package]]
 name = "indexmap"
@@ -397,7 +397,7 @@ dependencies = [
 [[package]]
 name = "memlog"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#49b6a19784a380a724cd28299cf84c7f4cd6cc83"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1cfa8e79d5f0a56abe6108ad62b5338a827ed753"
 dependencies = [
  "generic-array 0.13.2",
  "imx6ul-pac",
@@ -421,7 +421,7 @@ dependencies = [
 [[package]]
 name = "panic-serial"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#49b6a19784a380a724cd28299cf84c7f4cd6cc83"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1cfa8e79d5f0a56abe6108ad62b5338a827ed753"
 dependencies = [
  "cortex-a",
  "usbarmory",
@@ -609,7 +609,7 @@ checksum = "0e5e2b9ba23f0d9ef7a34e498b6581c9d67944a1916542bfc7238bf1dc0d6acd"
 [[package]]
 name = "usbarmory"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#49b6a19784a380a724cd28299cf84c7f4cd6cc83"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1cfa8e79d5f0a56abe6108ad62b5338a827ed753"
 dependencies = [
  "arrayref",
  "block-cipher-trait",
@@ -629,7 +629,7 @@ dependencies = [
 [[package]]
 name = "usbarmory-rt"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#49b6a19784a380a724cd28299cf84c7f4cd6cc83"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#1cfa8e79d5f0a56abe6108ad62b5338a827ed753"
 dependencies = [
  "cortex-a",
  "imx6ul-pac",
