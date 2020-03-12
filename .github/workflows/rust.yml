@@ -49,7 +49,8 @@ jobs:
           - thumbv7em-none-eabi
           - wasm32-unknown-unknown
         toolchain:
-          - beta
+          - 1.42.0 # MSRV
+          - stable
     steps:
       - name: Checkout sources
         uses: actions/checkout@v1
@@ -111,11 +112,11 @@ jobs:
           path: target
           key: ${{ runner.os }}-usbarmory-cargo-build-target-${{ hashFiles('Cargo.lock') }}
 
-      - name: Install beta toolchain
+      - name: Install stable toolchain
         uses: actions-rs/toolchain@v1
         with:
           target: armv7a-none-eabi
-          toolchain: beta
+          toolchain: stable
           override: true
 
       - name: Install flip-lld
@@ -139,7 +140,8 @@ jobs:
           - macos-latest
           - windows-latest
         toolchain:
-          - beta
+          - 1.42.0 # MSRV
+          - stable
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Checkout sources
