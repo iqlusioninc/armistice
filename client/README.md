@@ -67,7 +67,7 @@ without any additional terms or conditions.
 [safety-link]: https://github.com/rust-secure-code/safety-dance/
 [license-image]: https://img.shields.io/badge/license-Apache2.0-blue.svg
 [license-link]: https://github.com/iqlusioninc/armistice/blob/develop/LICENSE
-[msrv-image]: https://img.shields.io/badge/rustc-1.42+-red.svg
+[msrv-image]: https://img.shields.io/badge/rustc-1.42+-blue.svg
 [gitter-image]: https://badges.gitter.im/iqlusioninc/community.svg
 [gitter-link]: https://gitter.im/iqlusioninc/community
 
