@@ -27,6 +27,8 @@ stage and will not be ready to use for some time.
 If you are interested in contributing to this repository, please make sure to
 read the [CONTRIBUTING.md] and [CODE_OF_CONDUCT.md] files first.
 
+Please join us in [Matrix/Riot] chat. The chat requires a moderator/contributor to raise a new member from default privilge to send messages.
+
 ## License
 
 Copyright © 2019-2020 iqlusion
@@ -68,3 +70,4 @@ without any additional terms or conditions.
 [CONTRIBUTING.md]: https://github.com/iqlusioninc/armistice/blob/develop/CONTRIBUTING.md
 [CODE_OF_CONDUCT.md]: https://github.com/iqlusioninc/armistice/blob/develop/CODE_OF_CONDUCT.md
 [VISION.md]:  https://github.com/iqlusioninc/armistice/blob/develop/VISION.md
+[Matrix/Riot]: https://matrix.to/#/!RPcrrAZGkFhSYabkrM:matrix.org?via=matrix.org
