@@ -2,9 +2,8 @@
 
 use crate::provision;
 use veriform::{
-    field,
-    field::{Header, WireType},
-    Decodable, Decoder, Encoder, Error, Message,
+    decoder::{Decodable, Decoder},
+    field, Encoder, Error, Message,
 };
 
 /// Armistice request messages
@@ -34,26 +33,25 @@ impl From<provision::Request> for Request {
 
 // TODO(tarcieri): custom derive support for `veriform::Message`
 impl Message for Request {
-    fn decode(bytes: impl AsRef<[u8]>) -> Result<Self, Error> {
-        let mut bytes = bytes.as_ref();
-        let mut decoder = Decoder::new();
-        let request = match decoder.decode_header(&mut bytes)? {
-            Header {
-                tag: 0,
-                critical: true,
-                wire_type: WireType::Message,
-            } => Request::Provision(provision::Request::decode(
-                decoder.decode_message(&mut bytes)?,
-            )?),
-            Header { tag, wire_type, .. } => {
+    fn decode(decoder: &mut Decoder, mut input: &[u8]) -> Result<Self, Error> {
+        let header = decoder.peek().decode_header(&mut input)?;
+        let message = decoder.peek().decode_message(&mut input)?;
+
+        // TODO(tarcieri): higher-level abstraction for parsing enums
+        decoder.push()?;
+
+        let request = match header.tag {
+            0 => Request::Provision(provision::Request::decode(decoder, &message)?),
+            tag => {
                 return Err(Error::FieldHeader {
                     tag: Some(tag),
-                    wire_type: Some(wire_type),
+                    wire_type: None,
                 })
             }
         };
 
-        if bytes.is_empty() {
+        if input.is_empty() {
+            decoder.pop();
             Ok(request)
         } else {
             Err(Error::TrailingData)
@@ -82,7 +80,7 @@ pub(crate) mod tests {
     use super::Request;
     use crate::provision;
     use heapless::{consts::U128, Vec};
-    use veriform::Message;
+    use veriform::{Decoder, Message};
 
     /// Create an example `Request`
     pub(crate) fn example_message() -> Request {
@@ -98,6 +96,7 @@ pub(crate) mod tests {
         request.encode(&mut buffer).unwrap();
         buffer.truncate(request.encoded_len());
 
-        assert_eq!(request, Request::decode(&buffer).unwrap());
+        let mut decoder = Decoder::new();
+        assert_eq!(request, Request::decode(&mut decoder, &buffer).unwrap());
     }
 }

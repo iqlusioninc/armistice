@@ -1,20 +1,13 @@
 //! Armistice device provisioning messages: performs initial device setup
 
-use crate::public_key::PublicKey;
-use heapless::{
-    consts::{U36, U8},
-    String, Vec,
-};
+use crate::{public_key::PublicKey, Uuid};
+use heapless::{consts::U8, Vec};
 use veriform::{
-    decoder,
+    decoder::{sequence, Decode, DecodeSeq, Decoder},
     field::{self, WireType},
     message::Element,
-    vint64, Decodable, Decoder, Encoder, Error, Message,
+    vint64, Encoder, Error, Message,
 };
-
-/// UUID type
-// TODO(tarcieri): define a builtin type for UUIDs that uses the `uuid` crate
-pub type Uuid = String<U36>;
 
 /// Root keys collection
 pub type RootKeys = Vec<PublicKey, U8>;
@@ -35,31 +28,19 @@ pub struct Request {
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Response {
     /// UUID (deterministically) assigned at provisioning time
-    // #[field(string, tag = 0, critical = true, size = 36)]
+    // #[field(message, tag = 0, critical = true)]
     pub uuid: Uuid,
 }
 
 // TODO(tarcieri): custom derive support for `veriform::Message`
 impl Message for Request {
-    fn decode(bytes: impl AsRef<[u8]>) -> Result<Self, Error> {
-        let mut bytes = bytes.as_ref();
-        let mut decoder = Decoder::new();
-
-        decoder.decode_expected_header(&mut bytes, 0, WireType::UInt64)?;
-        let root_key_threshold = decoder.decode_uint64(&mut bytes)?;
-
-        decoder.decode_expected_header(&mut bytes, 1, WireType::Sequence)?;
-
-        let mut root_keys_bytes = decoder.decode_sequence(WireType::Message, &mut bytes)?;
+    fn decode(decoder: &mut Decoder, mut input: &[u8]) -> Result<Self, Error> {
+        let root_key_threshold = decoder.decode(0, &mut input)?;
+        let root_keys_iter: sequence::Iter<'_, PublicKey> = decoder.decode_seq(1, &mut input)?;
         let mut root_keys = Vec::new();
-        let mut root_keys_decoder =
-            decoder::sequence::Decoder::new(WireType::Message, root_keys_bytes.len());
 
-        while !root_keys_bytes.is_empty() {
-            let root_key =
-                PublicKey::decode(root_keys_decoder.decode_message(&mut root_keys_bytes)?)?;
-
-            root_keys.push(root_key).map_err(|_| Error::Decode {
+        for root_key in root_keys_iter {
+            root_keys.push(root_key?).map_err(|_| Error::Decode {
                 element: Element::Value,
                 wire_type: WireType::Sequence,
             })?;
@@ -105,27 +86,18 @@ impl Message for Request {
 
 // TODO(tarcieri): custom derive support for `veriform::Message`
 impl Message for Response {
-    fn decode(bytes: impl AsRef<[u8]>) -> Result<Self, Error> {
-        let mut bytes = bytes.as_ref();
-        let mut decoder = Decoder::new();
-
-        decoder.decode_expected_header(&mut bytes, 0, WireType::String)?;
-
-        let mut uuid = String::new();
-        uuid.push_str(decoder.decode_string(&mut bytes)?)
-            .map_err(|_| Error::Length)?;
-
-        Ok(Self { uuid })
+    fn decode(decoder: &mut Decoder, mut input: &[u8]) -> Result<Self, Error> {
+        decoder.decode(0, &mut input).map(|uuid| Self { uuid })
     }
 
     fn encode<'a>(&self, buffer: &'a mut [u8]) -> Result<&'a [u8], Error> {
         let mut encoder = Encoder::new(buffer);
-        encoder.string(0, true, &self.uuid)?;
+        encoder.message(0, true, &self.uuid)?;
         Ok(encoder.finish())
     }
 
     fn encoded_len(&self) -> usize {
-        field::length::string(0, &self.uuid)
+        field::length::message(0, &self.uuid)
     }
 }
 
@@ -133,8 +105,8 @@ impl Message for Response {
 pub(crate) mod tests {
     use super::{Request, Response};
     use crate::public_key::PublicKey;
-    use heapless::{consts::U128, String, Vec};
-    use veriform::Message;
+    use heapless::{consts::U128, Vec};
+    use veriform::{builtins::Uuid, Decoder, Message};
 
     /// Create an example `provision::Request`
     pub(crate) fn example_request() -> Request {
@@ -160,9 +132,7 @@ pub(crate) mod tests {
 
     /// Create an example `provision::Response`
     pub(crate) fn example_response() -> Response {
-        let mut uuid = String::new();
-        uuid.push_str("88888888-4444-4444-4444-121212121212")
-            .unwrap();
+        let uuid = Uuid::parse_str("88888888-4444-4444-4444-121212121212").unwrap();
         Response { uuid }
     }
 
@@ -175,7 +145,8 @@ pub(crate) mod tests {
         request.encode(&mut buffer).unwrap();
         buffer.truncate(request.encoded_len());
 
-        assert_eq!(request, Request::decode(&buffer).unwrap());
+        let mut decoder = Decoder::new();
+        assert_eq!(request, Request::decode(&mut decoder, &buffer).unwrap());
     }
 
     #[test]
@@ -187,6 +158,7 @@ pub(crate) mod tests {
         response.encode(&mut buffer).unwrap();
         buffer.truncate(response.encoded_len());
 
-        assert_eq!(response, Response::decode(&buffer).unwrap());
+        let mut decoder = Decoder::new();
+        assert_eq!(response, Response::decode(&mut decoder, &buffer).unwrap());
     }
 }

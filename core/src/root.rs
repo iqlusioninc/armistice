@@ -5,7 +5,7 @@
 //!
 //! <https://github.com/theupdateframework/specification/blob/master/tuf-spec.md#4-document-formats>
 
-use crate::{crypto::PublicKey, error::Error, schema::provision::Uuid};
+use crate::{crypto::PublicKey, error::Error, schema::Uuid};
 use heapless::Vec;
 
 /// Maximum number of keys allowed for root role
@@ -61,9 +61,6 @@ impl Config {
     /// Get a UUID which represents this root configuration
     pub fn uuid(&self) -> Uuid {
         // TODO(tarcieri): stub!
-        let mut uuid = Uuid::new();
-        uuid.push_str("00000000-0000-0000-0000-000000000000")
-            .unwrap();
-        uuid
+        Uuid::parse_str("00000000-0000-0000-0000-000000000000").unwrap()
     }
 }

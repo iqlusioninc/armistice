@@ -1,7 +1,7 @@
 //! Armistice client
 
 use crate::error::Error;
-use armistice_schema::{Message, Request, Response};
+use armistice_schema::{veriform::Decoder, Message, Request, Response};
 
 #[cfg(feature = "usbarmory")]
 use crate::usbarmory;
@@ -27,6 +27,8 @@ impl Armistice {
 
         let mut buf = vec![0; self.usb.in_max_packet_size().into()];
         let response = self.usb.read(&mut buf)?;
-        Ok(Response::decode(response)?)
+
+        let mut decoder = Decoder::new();
+        Ok(Response::decode(&mut decoder, response)?)
     }
 }

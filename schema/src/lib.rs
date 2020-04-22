@@ -11,4 +11,4 @@ pub mod request;
 pub mod response;
 
 pub use self::{public_key::PublicKey, request::Request, response::Response};
-pub use veriform::Message;
+pub use veriform::{self, builtins::Uuid, Message};
