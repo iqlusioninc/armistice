@@ -2,7 +2,7 @@
 
 use aes::{block_cipher_trait::BlockCipher, Aes128};
 use armistice_core::Vec;
-use armistice_schema::{provision, public_key::PublicKey};
+use armistice_schema::{provision, public_key::PublicKey, Uuid};
 
 type Armistice = armistice_core::Armistice<Aes128>;
 
@@ -42,6 +42,6 @@ fn provisioning_happy_path() {
     // TODO(tarcieri): stub!
     assert_eq!(
         response.provision().unwrap().uuid,
-        "00000000-0000-0000-0000-000000000000"
+        Uuid::parse_str("00000000-0000-0000-0000-000000000000").unwrap()
     );
 }

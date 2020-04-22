@@ -7,7 +7,7 @@
 #![deny(warnings, rust_2018_idioms, unused_qualifications)]
 #![forbid(unsafe_code)]
 
-use armistice_core::schema::{Message, Request};
+use armistice_core::schema::{veriform::Decoder, Message, Request};
 use core::time::Duration;
 use exception_reset as _; // default exception handler
 use heapless::pool::singleton::{Box, Pool};
@@ -145,8 +145,10 @@ const APP: () = {
     fn process_packet(cx: process_packet::Context, mut packet: Box<P>, len: usize) {
         cx.resources.leds.blue.on();
 
+        let mut decoder = Decoder::new();
+
         // TODO(tarcieri): better error handling
-        if let Ok(request) = Request::decode(&packet[..len]) {
+        if let Ok(request) = Request::decode(&mut decoder, &packet[..len]) {
             if let Ok(response) = cx.resources.armistice.handle_request(request) {
                 if let Ok(response_len) = response.encode(&mut packet[..]).map(|bytes| bytes.len())
                 {
