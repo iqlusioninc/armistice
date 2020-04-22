@@ -19,7 +19,7 @@ aes-gcm-siv = { version = "0.4", default-features = false, features = ["heapless
 armistice_schema = { version = "0", path = "../schema" }
 block-cipher-trait = "0.6"
 displaydoc = { version = "0.1", default-features = false }
-ecdsa = { version = "0.4", optional = true, default-features = false, features = ["p256"] }
+ecdsa = { version = "0.5", optional = true, default-features = false, features = ["p256"] }
 heapless = "0.5"
 
 [dev-dependencies]
