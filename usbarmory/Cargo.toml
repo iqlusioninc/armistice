@@ -21,5 +21,6 @@ cortex-a-rtfm = { git = "https://github.com/iqlusioninc/usbarmory.rs.git", branc
 exception-reset = { git = "https://github.com/iqlusioninc/usbarmory.rs.git", branch = "develop" }
 heapless = "0.5"
 panic-serial = { git = "https://github.com/iqlusioninc/usbarmory.rs.git", branch = "develop" }
-usbarmory = { git = "https://github.com/iqlusioninc/usbarmory.rs.git", branch = "develop" }
+usbarmory = { git = "https://github.com/iqlusioninc/usbarmory.rs.git", branch = "develop", features = ["dram"] }
 usb-device = "0.2"
+

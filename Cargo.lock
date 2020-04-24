@@ -163,9 +163,9 @@ checksum = "f8aac770f1885fd7e387acedd76065302551364496e46b3dd00860b2f8359b9d"
 
 [[package]]
 name = "backtrace"
-version = "0.3.45"
+version = "0.3.46"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ad235dabf00f36301792cfe82499880ba54c6486be094d1047b02bacb67c14e8"
+checksum = "b1e692897359247cc6bb902933361652380af0f1b7651ae5c5013407f30e109e"
 dependencies = [
  "backtrace-sys",
  "cfg-if",
@@ -175,9 +175,9 @@ dependencies = [
 
 [[package]]
 name = "backtrace-sys"
-version = "0.1.33"
+version = "0.1.36"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e17b52e737c40a7d75abca20b29a19a0eb7ba9fc72c5a72dd282a0a3c2c0dc35"
+checksum = "78848718ee1255a2485d1309ad9cdecfc2e7d0362dd11c6829364c6b35ae1bc7"
 dependencies = [
  "cc",
  "libc",
@@ -216,16 +216,16 @@ checksum = "08c48aae112d48ed9f069b33538ea9e3e90aa263cfa3d1c24309612b1f7472de"
 [[package]]
 name = "c-stubs"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#7eea2cc48f2f8b7c0634d468c04c7dbaf87f5e52"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#b71430d1500ede63d3f111fcd79d8ec5bc7127aa"
 dependencies = [
  "cty",
 ]
 
 [[package]]
 name = "cc"
-version = "1.0.50"
+version = "1.0.52"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "95e28fa049fda1c330bcf9d723be7663a899c4679724b34c81e9f5a326aab8cd"
+checksum = "c3d87b23d6a92cd03af510a5ade527033f6aa6fa92161e2d5863a907d4c5e31d"
 
 [[package]]
 name = "cfg-if"
@@ -236,17 +236,17 @@ checksum = "4785bdd1c96b2a846b2bd7cc02e86b6b3dbf14e7e53446c4f54c92a361040822"
 [[package]]
 name = "consts"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#7eea2cc48f2f8b7c0634d468c04c7dbaf87f5e52"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#b71430d1500ede63d3f111fcd79d8ec5bc7127aa"
 
 [[package]]
 name = "cortex-a"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#7eea2cc48f2f8b7c0634d468c04c7dbaf87f5e52"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#b71430d1500ede63d3f111fcd79d8ec5bc7127aa"
 
 [[package]]
 name = "cortex-a-rtfm"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#7eea2cc48f2f8b7c0634d468c04c7dbaf87f5e52"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#b71430d1500ede63d3f111fcd79d8ec5bc7127aa"
 dependencies = [
  "cortex-a",
  "cortex-a-rtfm-macros",
@@ -259,7 +259,7 @@ dependencies = [
 [[package]]
 name = "cortex-a-rtfm-macros"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#7eea2cc48f2f8b7c0634d468c04c7dbaf87f5e52"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#b71430d1500ede63d3f111fcd79d8ec5bc7127aa"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -340,7 +340,7 @@ dependencies = [
 [[package]]
 name = "exception-reset"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#7eea2cc48f2f8b7c0634d468c04c7dbaf87f5e52"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#b71430d1500ede63d3f111fcd79d8ec5bc7127aa"
 dependencies = [
  "cortex-a",
  "usbarmory",
@@ -348,9 +348,9 @@ dependencies = [
 
 [[package]]
 name = "filetime"
-version = "0.2.8"
+version = "0.2.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1ff6d4dab0aa0c8e6346d46052e93b13a16cf847b54ed357087c35011048cc7d"
+checksum = "f59efc38004c988e4201d11d263b8171f49a2e7ec0bdbb71773433f271504a5e"
 dependencies = [
  "cfg-if",
  "libc",
@@ -418,7 +418,7 @@ dependencies = [
 [[package]]
 name = "imx6ul-pac"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#7eea2cc48f2f8b7c0634d468c04c7dbaf87f5e52"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#b71430d1500ede63d3f111fcd79d8ec5bc7127aa"
 
 [[package]]
 name = "indexmap"
@@ -437,9 +437,9 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
 name = "libc"
-version = "0.2.67"
+version = "0.2.69"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eb147597cdf94ed43ab7a9038716637d2d1bf2bc571da995d0028dec06bd3018"
+checksum = "99e85c08494b21a9054e7fe1374a732aeadaff3980b6990b94bfd3a70f690005"
 
 [[package]]
 name = "libflate"
@@ -455,9 +455,9 @@ dependencies = [
 
 [[package]]
 name = "libusb1-sys"
-version = "0.3.5"
+version = "0.3.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e01d714676f5aeb27d636f5e502b2f65ee734576bbc09c77e8cf5aa5980fb6f9"
+checksum = "e0318f131edc8211a9a3e40133be6fc93f0b686e14f59c6115eab4e7bd794b34"
 dependencies = [
  "cc",
  "libc",
@@ -485,7 +485,7 @@ checksum = "3728d817d99e5ac407411fa471ff9800a778d88a24685968b36824eaf4bee400"
 [[package]]
 name = "memlog"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#7eea2cc48f2f8b7c0634d468c04c7dbaf87f5e52"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#b71430d1500ede63d3f111fcd79d8ec5bc7127aa"
 dependencies = [
  "imx6ul-pac",
 ]
@@ -508,7 +508,7 @@ dependencies = [
 [[package]]
 name = "panic-serial"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#7eea2cc48f2f8b7c0634d468c04c7dbaf87f5e52"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#b71430d1500ede63d3f111fcd79d8ec5bc7127aa"
 dependencies = [
  "cortex-a",
  "usbarmory",
@@ -532,9 +532,9 @@ dependencies = [
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.9"
+version = "1.0.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6c09721c6781493a2a492a96b5a5bf19b65917fe6728884e7c44dd0c60ca3435"
+checksum = "df246d292ff63439fea9bc8c0a270bed0e390d5ebd4db4ba15aba81111b5abe3"
 dependencies = [
  "unicode-xid",
 ]
@@ -650,9 +650,9 @@ checksum = "7c65d530b10ccaeac294f349038a597e435b18fb456aadd0840a623f83b9e941"
 
 [[package]]
 name = "syn"
-version = "1.0.16"
+version = "1.0.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "123bd9499cfb380418d509322d7a6d52e5315f064fe4b3ad18a53d6b92c07859"
+checksum = "410a7488c0a728c7ceb4ad59b9567eb4053d02e8cc7f5c0e0eeeb39518369213"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -715,9 +715,9 @@ dependencies = [
 
 [[package]]
 name = "typenum"
-version = "1.11.2"
+version = "1.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6d2783fe2d6b8c1101136184eb41be8b1ad379e4657050b8aaff0c79ee7575f9"
+checksum = "373c8a200f9e67a0c95e62a4f52fbf80c23b4381c05a17845531982fa99e6b33"
 
 [[package]]
 name = "unicode-xid"
@@ -744,7 +744,7 @@ checksum = "0e5e2b9ba23f0d9ef7a34e498b6581c9d67944a1916542bfc7238bf1dc0d6acd"
 [[package]]
 name = "usbarmory"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#7eea2cc48f2f8b7c0634d468c04c7dbaf87f5e52"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#b71430d1500ede63d3f111fcd79d8ec5bc7127aa"
 dependencies = [
  "arrayref",
  "block-cipher-trait",
@@ -765,7 +765,7 @@ dependencies = [
 [[package]]
 name = "usbarmory-rt"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#7eea2cc48f2f8b7c0634d468c04c7dbaf87f5e52"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#b71430d1500ede63d3f111fcd79d8ec5bc7127aa"
 dependencies = [
  "cortex-a",
  "imx6ul-pac",
