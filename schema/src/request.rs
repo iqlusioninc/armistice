@@ -3,6 +3,7 @@
 use crate::provision;
 use veriform::{
     decoder::{Decodable, Decoder},
+    digest::Digest,
     field, Encoder, Error, Message,
 };
 
@@ -33,7 +34,10 @@ impl From<provision::Request> for Request {
 
 // TODO(tarcieri): custom derive support for `veriform::Message`
 impl Message for Request {
-    fn decode(decoder: &mut Decoder, mut input: &[u8]) -> Result<Self, Error> {
+    fn decode<D>(decoder: &mut Decoder<D>, mut input: &[u8]) -> Result<Self, Error>
+    where
+        D: Digest,
+    {
         let header = decoder.peek().decode_header(&mut input)?;
         let message = decoder.peek().decode_message(&mut input)?;
 
