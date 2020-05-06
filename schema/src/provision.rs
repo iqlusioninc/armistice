@@ -4,6 +4,7 @@ use crate::{public_key::PublicKey, Uuid};
 use heapless::{consts::U8, Vec};
 use veriform::{
     decoder::{sequence, Decode, DecodeSeq, Decoder},
+    digest::Digest,
     field::{self, WireType},
     message::Element,
     vint64, Encoder, Error, Message,
@@ -34,7 +35,10 @@ pub struct Response {
 
 // TODO(tarcieri): custom derive support for `veriform::Message`
 impl Message for Request {
-    fn decode(decoder: &mut Decoder, mut input: &[u8]) -> Result<Self, Error> {
+    fn decode<D>(decoder: &mut Decoder<D>, mut input: &[u8]) -> Result<Self, Error>
+    where
+        D: Digest,
+    {
         let root_key_threshold = decoder.decode(0, &mut input)?;
         let root_keys_iter: sequence::Iter<'_, PublicKey> = decoder.decode_seq(1, &mut input)?;
         let mut root_keys = Vec::new();
@@ -86,7 +90,10 @@ impl Message for Request {
 
 // TODO(tarcieri): custom derive support for `veriform::Message`
 impl Message for Response {
-    fn decode(decoder: &mut Decoder, mut input: &[u8]) -> Result<Self, Error> {
+    fn decode<D>(decoder: &mut Decoder<D>, mut input: &[u8]) -> Result<Self, Error>
+    where
+        D: Digest,
+    {
         decoder.decode(0, &mut input).map(|uuid| Self { uuid })
     }
 

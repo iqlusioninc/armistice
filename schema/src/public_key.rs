@@ -3,6 +3,7 @@
 use core::convert::TryInto;
 use veriform::{
     decoder::{Decodable, Decoder},
+    digest::Digest,
     field::{self, WireType},
     message::{Element, Message},
     Encoder, Error,
@@ -18,7 +19,10 @@ pub enum PublicKey {
 
 // TODO(tarcieri): custom derive support for `veriform::Message`
 impl Message for PublicKey {
-    fn decode(decoder: &mut Decoder, mut input: &[u8]) -> Result<Self, Error> {
+    fn decode<D>(decoder: &mut Decoder<D>, mut input: &[u8]) -> Result<Self, Error>
+    where
+        D: Digest,
+    {
         let header = decoder.peek().decode_header(&mut input)?;
         let bytes = decoder.peek().decode_bytes(&mut input)?;
 

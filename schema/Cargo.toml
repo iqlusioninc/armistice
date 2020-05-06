@@ -13,7 +13,11 @@ keywords   = ["bls", "ed25519", "ecdsa", "hsm"]
 
 [dependencies]
 heapless = "0.5"
-veriform = { version = "0", default-features = false, features = ["builtins"] }
+
+[dependencies.veriform]
+version = "0"
+default-features = false
+features = ["builtins", "sha2"]
 
 [dev-dependencies]
 veriform = { version = "0", default-features = false, features = ["builtins", "log"] }
