@@ -4,7 +4,8 @@ use crate::provision;
 use veriform::{
     decoder::{Decodable, Decoder},
     digest::Digest,
-    field, Encoder, Error, Message,
+    error::{self, Error},
+    field, Encoder, Message,
 };
 
 /// Armistice request messages
@@ -47,10 +48,11 @@ impl Message for Request {
         let request = match header.tag {
             0 => Request::Provision(provision::Request::decode(decoder, &message)?),
             tag => {
-                return Err(Error::FieldHeader {
+                return Err(error::Kind::FieldHeader {
                     tag: Some(tag),
                     wire_type: None,
-                })
+                }
+                .into())
             }
         };
 
@@ -58,7 +60,7 @@ impl Message for Request {
             decoder.pop();
             Ok(request)
         } else {
-            Err(Error::TrailingData)
+            Err(error::Kind::TrailingData.into())
         }
     }
 
