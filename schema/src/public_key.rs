@@ -4,9 +4,10 @@ use core::convert::TryInto;
 use veriform::{
     decoder::{Decodable, Decoder},
     digest::Digest,
+    error::{self, Error},
     field::{self, WireType},
     message::{Element, Message},
-    Encoder, Error,
+    Encoder,
 };
 
 /// Public keys
@@ -27,26 +28,27 @@ impl Message for PublicKey {
         let bytes = decoder.peek().decode_bytes(&mut input)?;
 
         let public_key = match header.tag {
-            0 => bytes
-                .try_into()
-                .map(PublicKey::Ed25519)
-                .map_err(|_| Error::Decode {
+            0 => bytes.try_into().map(PublicKey::Ed25519).map_err(|_| {
+                Error::from(error::Kind::Decode {
                     element: Element::Value,
                     wire_type: WireType::Bytes,
-                })?,
+                })
+            })?,
             tag => {
-                return Err(Error::FieldHeader {
+                return Err(error::Kind::FieldHeader {
                     tag: Some(tag),
                     wire_type: None,
-                })
+                }
+                .into())
             }
         };
 
         if !input.is_empty() {
-            return Err(Error::Decode {
+            return Err(error::Kind::Decode {
                 element: Element::Tag,
                 wire_type: WireType::Message,
-            });
+            }
+            .into());
         }
 
         Ok(public_key)

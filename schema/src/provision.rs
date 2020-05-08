@@ -5,9 +5,10 @@ use heapless::{consts::U8, Vec};
 use veriform::{
     decoder::{sequence, Decode, DecodeSeq, Decoder},
     digest::Digest,
+    error::{self, Error},
     field::{self, WireType},
     message::Element,
-    vint64, Encoder, Error, Message,
+    vint64, Encoder, Message,
 };
 
 /// Root keys collection
@@ -40,13 +41,15 @@ impl Message for Request {
         D: Digest,
     {
         let root_key_threshold = decoder.decode(0, &mut input)?;
-        let root_keys_iter: sequence::Iter<'_, PublicKey> = decoder.decode_seq(1, &mut input)?;
+        let root_keys_iter: sequence::Iter<'_, PublicKey, D> = decoder.decode_seq(1, &mut input)?;
         let mut root_keys = Vec::new();
 
         for root_key in root_keys_iter {
-            root_keys.push(root_key?).map_err(|_| Error::Decode {
-                element: Element::Value,
-                wire_type: WireType::Sequence,
+            root_keys.push(root_key?).map_err(|_| {
+                Error::from(error::Kind::Decode {
+                    element: Element::Value,
+                    wire_type: WireType::Sequence,
+                })
             })?;
         }
 

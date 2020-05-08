@@ -4,7 +4,8 @@ use crate::provision;
 use veriform::{
     decoder::{Decodable, Decoder},
     digest::Digest,
-    field, Encoder, Error, Message,
+    error::{self, Error},
+    field, Encoder, Message,
 };
 
 /// Armistice response messages
@@ -46,10 +47,11 @@ impl Message for Response {
         let response = match header.tag {
             0 => Response::Provision(provision::Response::decode(decoder, &message)?),
             tag => {
-                return Err(Error::FieldHeader {
+                return Err(error::Kind::FieldHeader {
                     tag: Some(tag),
                     wire_type: None,
-                })
+                }
+                .into())
             }
         };
 
@@ -57,7 +59,7 @@ impl Message for Response {
             decoder.pop();
             Ok(response)
         } else {
-            Err(Error::TrailingData)
+            Err(error::Kind::TrailingData.into())
         }
     }
 
