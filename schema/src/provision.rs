@@ -24,6 +24,10 @@ pub struct Request {
     /// Root keys used to manage domains
     // #[field(sequence(message), tag = 1, critical = true, max = 8)]
     pub root_keys: RootKeys,
+
+    /// Digest of this message (to be signed by each of the root keys)
+    // #[digest(sha256)]
+    pub digest: [u8; 32],
 }
 
 /// Response to a device being provisioned
@@ -53,9 +57,13 @@ impl Message for Request {
             })?;
         }
 
+        let mut digest = [0u8; 32];
+        decoder.fill_digest(&mut digest)?;
+
         Ok(Self {
             root_key_threshold,
             root_keys,
+            digest,
         })
     }
 
@@ -134,9 +142,15 @@ pub(crate) mod tests {
             ]))
             .unwrap();
 
+        let digest = [
+            62, 123, 47, 254, 135, 49, 169, 234, 97, 122, 186, 151, 131, 201, 204, 233, 10, 95,
+            192, 185, 47, 98, 107, 121, 143, 244, 221, 127, 183, 159, 183, 187,
+        ];
+
         Request {
             root_key_threshold: 1,
             root_keys,
+            digest,
         }
     }
 
