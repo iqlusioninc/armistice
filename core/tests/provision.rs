@@ -32,9 +32,15 @@ fn provisioning_happy_path() {
         ]))
         .unwrap();
 
+    let digest = [
+        62, 123, 47, 254, 135, 49, 169, 234, 97, 122, 186, 151, 131, 201, 204, 233, 10, 95, 192,
+        185, 47, 98, 107, 121, 143, 244, 221, 127, 183, 159, 183, 187,
+    ];
+
     let request = provision::Request {
         root_key_threshold: 1,
         root_keys,
+        digest,
     };
 
     let response = armistice.handle_request(request.into()).unwrap();
