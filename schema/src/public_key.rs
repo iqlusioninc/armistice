@@ -1,74 +1,13 @@
 //! Armistice public keys
 
-use core::convert::TryInto;
-use veriform::{
-    decoder::{Decodable, Decoder},
-    digest::Digest,
-    error::{self, Error},
-    field::{self, WireType},
-    message::{Element, Message},
-    Encoder,
-};
+use veriform::Message;
 
 /// Public keys
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Message, Clone, Debug, Eq, PartialEq)]
 pub enum PublicKey {
     /// Ed25519 keys
-    // #[field(bytes, tag = 0, size = 32)]
+    #[field(tag = 0, wire_type = "bytes", size = 32)]
     Ed25519([u8; 32]),
-}
-
-// TODO(tarcieri): custom derive support for `veriform::Message`
-impl Message for PublicKey {
-    fn decode<D>(decoder: &mut Decoder<D>, mut input: &[u8]) -> Result<Self, Error>
-    where
-        D: Digest,
-    {
-        let header = decoder.peek().decode_header(&mut input)?;
-        let bytes = decoder.peek().decode_bytes(&mut input)?;
-
-        let public_key = match header.tag {
-            0 => bytes.try_into().map(PublicKey::Ed25519).map_err(|_| {
-                Error::from(error::Kind::Decode {
-                    element: Element::Value,
-                    wire_type: WireType::Bytes,
-                })
-            })?,
-            tag => {
-                return Err(error::Kind::FieldHeader {
-                    tag: Some(tag),
-                    wire_type: None,
-                }
-                .into())
-            }
-        };
-
-        if !input.is_empty() {
-            return Err(error::Kind::Decode {
-                element: Element::Tag,
-                wire_type: WireType::Message,
-            }
-            .into());
-        }
-
-        Ok(public_key)
-    }
-
-    fn encode<'a>(&self, buffer: &'a mut [u8]) -> Result<&'a [u8], Error> {
-        let mut encoder = Encoder::new(buffer);
-
-        match self {
-            PublicKey::Ed25519(bytes) => encoder.bytes(0, true, bytes)?,
-        }
-
-        Ok(encoder.finish())
-    }
-
-    fn encoded_len(&self) -> usize {
-        match self {
-            PublicKey::Ed25519(bytes) => field::length::bytes(0, bytes),
-        }
-    }
 }
 
 #[cfg(test)]

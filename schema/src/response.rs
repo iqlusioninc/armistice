@@ -1,22 +1,17 @@
 //! Armistice response messages
 
 use crate::provision;
-use veriform::{
-    decoder::{Decodable, Decoder},
-    digest::Digest,
-    error::{self, Error},
-    field, Encoder, Message,
-};
+use veriform::Message;
 
 /// Armistice response messages
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Message, Clone, Debug, Eq, PartialEq)]
 pub enum Response {
     /// Perform initial device provisioning
-    // #[field(message, critical = true, tag = 0)]
+    #[field(tag = 0, wire_type = "message")]
     Provision(provision::Response),
 }
 
-// TODO(tarcieri): custom derive support for `veriform::Message`
+// TODO(tarcieri): add to custom derive support for `veriform::Message`
 impl Response {
     /// Get a provisioning response, if this is one
     pub fn provision(&self) -> Option<&provision::Response> {
@@ -26,57 +21,10 @@ impl Response {
     }
 }
 
+// TODO(tarcieri): add to custom derive support for `veriform::Message`
 impl From<provision::Response> for Response {
     fn from(response: provision::Response) -> Response {
         Response::Provision(response)
-    }
-}
-
-// TODO(tarcieri): custom derive support for `veriform::Message`
-impl Message for Response {
-    fn decode<D>(decoder: &mut Decoder<D>, mut input: &[u8]) -> Result<Self, Error>
-    where
-        D: Digest,
-    {
-        let header = decoder.peek().decode_header(&mut input)?;
-        let message = decoder.peek().decode_message(&mut input)?;
-
-        // TODO(tarcieri): higher-level abstraction for parsing enums
-        decoder.push()?;
-
-        let response = match header.tag {
-            0 => Response::Provision(provision::Response::decode(decoder, &message)?),
-            tag => {
-                return Err(error::Kind::FieldHeader {
-                    tag: Some(tag),
-                    wire_type: None,
-                }
-                .into())
-            }
-        };
-
-        if input.is_empty() {
-            decoder.pop();
-            Ok(response)
-        } else {
-            Err(error::Kind::TrailingData.into())
-        }
-    }
-
-    fn encode<'a>(&self, buffer: &'a mut [u8]) -> Result<&'a [u8], Error> {
-        let mut encoder = Encoder::new(buffer);
-
-        match self {
-            Response::Provision(msg) => encoder.message(0, true, msg)?,
-        }
-
-        Ok(encoder.finish())
-    }
-
-    fn encoded_len(&self) -> usize {
-        match self {
-            Response::Provision(msg) => field::length::message(0, msg),
-        }
     }
 }
 

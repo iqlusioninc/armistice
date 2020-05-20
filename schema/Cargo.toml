@@ -17,7 +17,7 @@ heapless = "0.5"
 [dependencies.veriform]
 version = "0"
 default-features = false
-features = ["builtins", "sha2"]
+features = ["builtins", "sha2", "veriform_derive"]
 
 [dev-dependencies]
 veriform = { version = "0", default-features = false, features = ["builtins", "log"] }
