@@ -6,9 +6,6 @@ members = [
     "usbarmory"
 ]
 
-[patch.crates-io]
-veriform = { git = "https://github.com/iqlusioninc/veriform.git", branch = "develop" }
-
 [profile.release]
 codegen-units = 1
 debug = 1
@@ -17,3 +14,7 @@ incremental = false
 lto = "fat"
 opt-level = 3
 overflow-checks = false
+
+[patch.crates-io.veriform]
+git = "https://github.com/iqlusioninc/veriform.git"
+branch = "develop"
