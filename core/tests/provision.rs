@@ -2,7 +2,7 @@
 
 use aes::{block_cipher_trait::BlockCipher, Aes128};
 use armistice_core::Vec;
-use armistice_schema::{provision, public_key::PublicKey, Uuid};
+use armistice_schema::{provision, public_key::PublicKey, Timestamp, Uuid};
 
 type Armistice = armistice_core::Armistice<Aes128>;
 
@@ -32,9 +32,14 @@ fn provisioning_happy_path() {
         ]))
         .unwrap();
 
+    // TAI64N for 2020-05-21
+    let timestamp =
+        Timestamp::from_slice(&[64, 0, 0, 0, 94, 198, 207, 194, 32, 254, 206, 208]).unwrap();
+
     let request = provision::Request {
         root_key_threshold: 1,
         root_keys,
+        timestamp,
         digest: None,
     };
 

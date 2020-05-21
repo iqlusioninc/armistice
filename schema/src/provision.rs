@@ -1,6 +1,6 @@
 //! Armistice device provisioning messages: performs initial device setup
 
-use crate::{public_key::PublicKey, Uuid};
+use crate::{public_key::PublicKey, Timestamp, Uuid};
 use heapless::{consts::U8, Vec};
 use veriform::{Message, Sha256Digest};
 
@@ -18,6 +18,10 @@ pub struct Request {
     #[field(tag = 1, wire_type = "sequence", critical = true, max = 8)]
     pub root_keys: RootKeys,
 
+    /// Date/time when provisioning occurs (agreed upon by all root keys)
+    #[field(tag = 2, wire_type = "message", critical = true)]
+    pub timestamp: Timestamp,
+
     /// Digest of this message (to be signed by each of the root keys)
     #[digest(alg = "sha256")]
     pub digest: Option<Sha256Digest>,
@@ -34,9 +38,15 @@ pub struct Response {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::{Request, Response};
-    use crate::public_key::PublicKey;
+    use crate::{PublicKey, Timestamp, Uuid};
     use heapless::{consts::U128, Vec};
-    use veriform::{builtins::Uuid, Decoder, Message};
+    use veriform::{Decoder, Message};
+
+    /// Get an example timestamp
+    fn example_timestamp() -> Timestamp {
+        // TAI64N for 2020-05-21
+        Timestamp::from_slice(&[64, 0, 0, 0, 94, 198, 207, 194, 32, 254, 206, 208]).unwrap()
+    }
 
     /// Create an example `provision::Request`
     pub(crate) fn example_request() -> Request {
@@ -55,13 +65,14 @@ pub(crate) mod tests {
             .unwrap();
 
         let expected_digest = [
-            149, 173, 233, 28, 199, 79, 67, 147, 164, 217, 0, 120, 254, 54, 37, 58, 185, 41, 172,
-            165, 134, 90, 211, 62, 157, 57, 86, 58, 39, 213, 198, 134,
+            225, 37, 108, 176, 102, 183, 208, 121, 75, 83, 180, 236, 23, 212, 221, 75, 18, 204, 98,
+            114, 146, 40, 65, 128, 2, 84, 116, 235, 219, 32, 123, 148,
         ];
 
         Request {
             root_key_threshold: 1,
             root_keys,
+            timestamp: example_timestamp(),
             digest: Some(expected_digest),
         }
     }
