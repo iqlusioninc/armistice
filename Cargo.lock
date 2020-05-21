@@ -897,8 +897,9 @@ checksum = "3fc439f2794e98976c88a2a2dafce96b930fe8010b0a256b3c2199a773933168"
 
 [[package]]
 name = "veriform"
-version = "0.0.1"
-source = "git+https://github.com/iqlusioninc/veriform.git?branch=develop#1cc069725b19059867fdb77b2054c954bed3d21d"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4e9aaa23b6165fc9d0c118b9a47591ebd2b7628aef489368f6e607bb2384b517"
 dependencies = [
  "digest",
  "displaydoc",
@@ -913,8 +914,9 @@ dependencies = [
 
 [[package]]
 name = "veriform_derive"
-version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/veriform.git?branch=develop#1cc069725b19059867fdb77b2054c954bed3d21d"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "68671dfbae9d9762aa3f663ab96aa433001119c2d204d57bb6158c4e9a715e1e"
 dependencies = [
  "darling",
  "proc-macro2",
@@ -926,7 +928,8 @@ dependencies = [
 [[package]]
 name = "vint64"
 version = "1.0.1"
-source = "git+https://github.com/iqlusioninc/veriform.git?branch=develop#1cc069725b19059867fdb77b2054c954bed3d21d"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e0b3dd7987b5df43ec8f5a1050d608b4d9c78a5785c70549635870b9cad9442c"
 
 [[package]]
 name = "winapi"
