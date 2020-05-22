@@ -97,7 +97,7 @@ dependencies = [
  "consts",
  "displaydoc",
  "rusb",
- "veriform",
+ "veriform 0.1.0",
 ]
 
 [[package]]
@@ -119,7 +119,8 @@ version = "0.0.0"
 dependencies = [
  "env_logger",
  "heapless",
- "veriform",
+ "veriform 0.1.0",
+ "veriform 0.2.0",
 ]
 
 [[package]]
@@ -908,7 +909,23 @@ dependencies = [
  "sha2",
  "tai64",
  "uuid",
- "veriform_derive",
+ "veriform_derive 0.1.0",
+ "vint64",
+]
+
+[[package]]
+name = "veriform"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c85788e7c9afe08a8691e1658749e0a92752f3ecbc631146643f073efcc5953f"
+dependencies = [
+ "digest",
+ "displaydoc",
+ "heapless",
+ "sha2",
+ "tai64",
+ "uuid",
+ "veriform_derive 0.2.0",
  "vint64",
 ]
 
@@ -917,6 +934,19 @@ name = "veriform_derive"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "68671dfbae9d9762aa3f663ab96aa433001119c2d204d57bb6158c4e9a715e1e"
+dependencies = [
+ "darling",
+ "proc-macro2",
+ "quote",
+ "syn",
+ "synstructure",
+]
+
+[[package]]
+name = "veriform_derive"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ad4ebd782481d48a35097f0d9300875f75ebaa999b5a2381160fa4279fe099b4"
 dependencies = [
  "darling",
  "proc-macro2",
