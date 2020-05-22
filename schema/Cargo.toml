@@ -15,12 +15,12 @@ keywords   = ["bls", "ed25519", "ecdsa", "hsm"]
 heapless = "0.5"
 
 [dependencies.veriform]
-version = "0.1"
+version = "0.2"
 default-features = false
 features = ["builtins", "sha2", "veriform_derive"]
 
 [dev-dependencies]
-veriform = { version = "0", default-features = false, features = ["builtins", "log"] }
+veriform = { version = "0.2", default-features = false, features = ["builtins", "log"] }
 env_logger = "0.7"
 
 [package.metadata.docs.rs]
