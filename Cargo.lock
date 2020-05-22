@@ -97,7 +97,7 @@ dependencies = [
  "consts",
  "displaydoc",
  "rusb",
- "veriform 0.1.0",
+ "veriform 0.2.0",
 ]
 
 [[package]]
@@ -906,10 +906,8 @@ dependencies = [
  "displaydoc",
  "heapless",
  "log",
- "sha2",
  "tai64",
  "uuid",
- "veriform_derive 0.1.0",
  "vint64",
 ]
 
@@ -925,21 +923,8 @@ dependencies = [
  "sha2",
  "tai64",
  "uuid",
- "veriform_derive 0.2.0",
+ "veriform_derive",
  "vint64",
-]
-
-[[package]]
-name = "veriform_derive"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "68671dfbae9d9762aa3f663ab96aa433001119c2d204d57bb6158c4e9a715e1e"
-dependencies = [
- "darling",
- "proc-macro2",
- "quote",
- "syn",
- "synstructure",
 ]
 
 [[package]]
