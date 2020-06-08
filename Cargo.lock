@@ -17,11 +17,11 @@ checksum = "5d2e7343e7fc9de883d1b0341e0b13970f764c14101234857d2ddafa1cb1cac2"
 
 [[package]]
 name = "aead"
-version = "0.2.0"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4cf01b9b56e767bb57b94ebf91a58b338002963785cdd7013e21c0d4679471e4"
+checksum = "20e6f2cedd00d6e1d33954c9e4181094b61d87e7e751e5aaed1c249df5ba71ba"
 dependencies = [
- "generic-array 0.12.3",
+ "generic-array 0.14.1",
  "heapless",
 ]
 
@@ -38,12 +38,12 @@ dependencies = [
 
 [[package]]
 name = "aes-gcm-siv"
-version = "0.4.1"
+version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ed8c21a21a0afb20aeb41328e980939e99fa02f136ae7317665e892d2760912a"
+checksum = "d1a12c10cd2b4a69bca3be6c79f295b95d974599f488f992c0e9fa90f7ee5a7e"
 dependencies = [
  "aead",
- "block-cipher-trait",
+ "block-cipher",
  "polyval",
  "subtle",
  "zeroize",
@@ -97,7 +97,7 @@ dependencies = [
  "consts",
  "displaydoc",
  "rusb",
- "veriform 0.2.0",
+ "veriform",
 ]
 
 [[package]]
@@ -119,8 +119,7 @@ version = "0.0.0"
 dependencies = [
  "env_logger",
  "heapless",
- "veriform 0.1.0",
- "veriform 0.2.0",
+ "veriform",
 ]
 
 [[package]]
@@ -209,6 +208,15 @@ dependencies = [
  "byte-tools",
  "byteorder",
  "generic-array 0.12.3",
+]
+
+[[package]]
+name = "block-cipher"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f837aab23b44bf3be7e24411b599fda76b1788792e765fa077af268292e156d1"
+dependencies = [
+ "generic-array 0.14.1",
 ]
 
 [[package]]
@@ -452,6 +460,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "generic-array"
+version = "0.14.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6d2664c2cf08049036f31015b04c6ac3671379a1d86f52ed2416893f16022deb"
+dependencies = [
+ "typenum",
+]
+
+[[package]]
 name = "gimli"
 version = "0.21.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -615,9 +632,9 @@ checksum = "05da548ad6865900e60eaba7f589cc0783590a92e940c26953ff81ddbab2d677"
 
 [[package]]
 name = "polyval"
-version = "0.3.3"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7ec3341498978de3bfd12d1b22f1af1de22818f5473a11e8a6ef997989e3a212"
+checksum = "d9a50142b55ab3ed0e9f68dfb3709f1d90d29da24e91033f28b96330643107dc"
 dependencies = [
  "cfg-if",
  "universal-hash",
@@ -838,11 +855,11 @@ checksum = "826e7639553986605ec5979c7dd957c7895e93eabed50ab2ffa7f6128a75097c"
 
 [[package]]
 name = "universal-hash"
-version = "0.3.0"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "df0c900f2f9b4116803415878ff48b63da9edb268668e08cf9292d7503114a01"
+checksum = "8326b2c654932e3e4f9196e69d08fdf7cfd718e1dc6f66b347e6024a0c961402"
 dependencies = [
- "generic-array 0.12.3",
+ "generic-array 0.14.1",
  "subtle",
 ]
 
@@ -898,21 +915,6 @@ checksum = "3fc439f2794e98976c88a2a2dafce96b930fe8010b0a256b3c2199a773933168"
 
 [[package]]
 name = "veriform"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4e9aaa23b6165fc9d0c118b9a47591ebd2b7628aef489368f6e607bb2384b517"
-dependencies = [
- "digest",
- "displaydoc",
- "heapless",
- "log",
- "tai64",
- "uuid",
- "vint64",
-]
-
-[[package]]
-name = "veriform"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c85788e7c9afe08a8691e1658749e0a92752f3ecbc631146643f073efcc5953f"
@@ -920,6 +922,7 @@ dependencies = [
  "digest",
  "displaydoc",
  "heapless",
+ "log",
  "sha2",
  "tai64",
  "uuid",
