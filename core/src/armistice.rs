@@ -6,7 +6,7 @@ use crate::{
     root,
     schema::{self, Request, Response},
 };
-use block_cipher_trait::{
+use block_cipher::{
     generic_array::{typenum::U16, ArrayLength, GenericArray},
     BlockCipher,
 };
