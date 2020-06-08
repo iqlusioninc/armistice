@@ -1,6 +1,6 @@
 //! Provisioning integration test
 
-use aes::{block_cipher_trait::BlockCipher, Aes128};
+use aes::{block_cipher::NewBlockCipher, Aes128};
 use armistice_core::Vec;
 use armistice_schema::{provision, public_key::PublicKey, Timestamp, Uuid};
 
