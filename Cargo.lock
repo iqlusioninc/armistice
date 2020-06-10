@@ -366,23 +366,22 @@ dependencies = [
 
 [[package]]
 name = "ecdsa"
-version = "0.5.0"
+version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5a7aaf89875554fab12c9d0855d694803a8820b73bfb89cdc96546b6bcab69e4"
+checksum = "3a184c3e1b6bc72ac8de04ef553a238d57067cb3c9e5e9783578bdc2bb3c3283"
 dependencies = [
  "elliptic-curve",
- "generic-array 0.12.3",
  "p256",
  "signature",
 ]
 
 [[package]]
 name = "elliptic-curve"
-version = "0.3.0"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "01f69be7d1feb7a7a04f158aaf32c7deaa7604e9bd58145525e536438c4e5096"
+checksum = "2298f66754d859f4c099b0e645cfd258d2dfdfd1bac9496fd514d603ff6a5c6b"
 dependencies = [
- "generic-array 0.12.3",
+ "generic-array 0.14.1",
  "subtle",
 ]
 
@@ -599,9 +598,9 @@ checksum = "2839e79665f131bdb5782e51f2c6c9599c133c6098982a54c794358bf432529c"
 
 [[package]]
 name = "p256"
-version = "0.1.0"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "812a058a5afc96a52a8ab6e250325d025254ff030ff737dc5b62576e4e604c42"
+checksum = "a425ecb71515663b2735fd1e65bb638fd134c5ad23857eb197c2f157784476cf"
 dependencies = [
  "elliptic-curve",
 ]
@@ -745,9 +744,9 @@ dependencies = [
 
 [[package]]
 name = "signature"
-version = "1.0.1"
+version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "685e1c5b65c6cc6fd0eb9ba63c6cfb8431f7f9c7e078c626f23f50e13fa378d7"
+checksum = "65211b7b6fc3f14ff9fc7a2011a434e3e6880585bd2e9e9396315ae24cbf7852"
 
 [[package]]
 name = "stable_deref_trait"
