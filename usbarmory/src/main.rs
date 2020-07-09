@@ -1,6 +1,6 @@
 //! Armistice for USB armory MkII
 //!
-//! Implemented as a `cortex-a-rtfm` application
+//! Implemented as a `cortex-a-rtic` application
 
 #![no_main]
 #![no_std]
@@ -30,7 +30,7 @@ heapless::pool!(P: [u8; MAX_PACKET_SIZE as usize]);
 /// Armistice instantiated with USB armory types
 type Armistice = armistice_core::Armistice<Aes128>;
 
-#[rtfm::app()]
+#[rtic::app()]
 const APP: () = {
     struct Resources {
         armistice: Armistice,

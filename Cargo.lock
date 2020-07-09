@@ -11,17 +11,17 @@ dependencies = [
 
 [[package]]
 name = "adler32"
-version = "1.0.4"
+version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5d2e7343e7fc9de883d1b0341e0b13970f764c14101234857d2ddafa1cb1cac2"
+checksum = "567b077b825e468cc974f0020d4082ee6e03132512f207ef1a02fd5d00d1f32d"
 
 [[package]]
 name = "aead"
-version = "0.3.0"
+version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "20e6f2cedd00d6e1d33954c9e4181094b61d87e7e751e5aaed1c249df5ba71ba"
+checksum = "3672ba0d12aaf256aabcdab516ebed87b5cec4b602316d7a3035fac9b7a9567b"
 dependencies = [
- "generic-array 0.14.1",
+ "generic-array 0.14.2",
  "heapless",
 ]
 
@@ -128,7 +128,7 @@ version = "0.0.0"
 dependencies = [
  "armistice_core",
  "consts",
- "cortex-a-rtfm",
+ "cortex-a-rtic",
  "exception-reset",
  "heapless",
  "panic-serial",
@@ -172,13 +172,14 @@ checksum = "f8aac770f1885fd7e387acedd76065302551364496e46b3dd00860b2f8359b9d"
 
 [[package]]
 name = "backtrace"
-version = "0.3.48"
+version = "0.3.49"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0df2f85c8a2abbe3b7d7e748052fdd9b76a0458fdeb16ad4223f5eca78c7c130"
+checksum = "05100821de9e028f12ae3d189176b41ee198341eb8f369956407fea2f5cc666c"
 dependencies = [
  "addr2line",
  "cfg-if",
  "libc",
+ "miniz_oxide",
  "object",
  "rustc-demangle",
 ]
@@ -216,7 +217,7 @@ version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fa136449e765dc7faa244561ccae839c394048667929af599b5d931ebe7b7f10"
 dependencies = [
- "generic-array 0.14.1",
+ "generic-array 0.14.2",
 ]
 
 [[package]]
@@ -243,7 +244,7 @@ checksum = "08c48aae112d48ed9f069b33538ea9e3e90aa263cfa3d1c24309612b1f7472de"
 [[package]]
 name = "c-stubs"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#e5a5a5c9c9c22ee8f7d85b183dd66e3cde7802ce"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#692433d14609cdd5dfe3f3a89dbc9118a8c7398d"
 dependencies = [
  "cty",
 ]
@@ -263,34 +264,34 @@ checksum = "4785bdd1c96b2a846b2bd7cc02e86b6b3dbf14e7e53446c4f54c92a361040822"
 [[package]]
 name = "consts"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#e5a5a5c9c9c22ee8f7d85b183dd66e3cde7802ce"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#692433d14609cdd5dfe3f3a89dbc9118a8c7398d"
 
 [[package]]
 name = "cortex-a"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#e5a5a5c9c9c22ee8f7d85b183dd66e3cde7802ce"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#692433d14609cdd5dfe3f3a89dbc9118a8c7398d"
 
 [[package]]
-name = "cortex-a-rtfm"
+name = "cortex-a-rtic"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#e5a5a5c9c9c22ee8f7d85b183dd66e3cde7802ce"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#692433d14609cdd5dfe3f3a89dbc9118a8c7398d"
 dependencies = [
  "cortex-a",
- "cortex-a-rtfm-macros",
+ "cortex-a-rtic-macros",
  "heapless",
  "imx6ul-pac",
- "rtfm-core",
+ "rtic-core",
  "usbarmory-rt",
 ]
 
 [[package]]
-name = "cortex-a-rtfm-macros"
+name = "cortex-a-rtic-macros"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#e5a5a5c9c9c22ee8f7d85b183dd66e3cde7802ce"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#692433d14609cdd5dfe3f3a89dbc9118a8c7398d"
 dependencies = [
  "proc-macro2",
  "quote",
- "rtfm-syntax",
+ "rtic-syntax",
  "syn",
 ]
 
@@ -366,9 +367,9 @@ dependencies = [
 
 [[package]]
 name = "ecdsa"
-version = "0.6.0"
+version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3a184c3e1b6bc72ac8de04ef553a238d57067cb3c9e5e9783578bdc2bb3c3283"
+checksum = "eb6ba8a681d3a9c48875d277f2b11c81934ad690a60a20bcc4eef500ff68e25d"
 dependencies = [
  "elliptic-curve",
  "p256",
@@ -381,7 +382,7 @@ version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2298f66754d859f4c099b0e645cfd258d2dfdfd1bac9496fd514d603ff6a5c6b"
 dependencies = [
- "generic-array 0.14.1",
+ "generic-array 0.14.2",
  "subtle",
 ]
 
@@ -401,7 +402,7 @@ dependencies = [
 [[package]]
 name = "exception-reset"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#e5a5a5c9c9c22ee8f7d85b183dd66e3cde7802ce"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#692433d14609cdd5dfe3f3a89dbc9118a8c7398d"
 dependencies = [
  "cortex-a",
  "usbarmory",
@@ -451,11 +452,12 @@ dependencies = [
 
 [[package]]
 name = "generic-array"
-version = "0.14.1"
+version = "0.14.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6d2664c2cf08049036f31015b04c6ac3671379a1d86f52ed2416893f16022deb"
+checksum = "ac746a5f3bbfdadd6106868134545e684693d54d9d44f6e9588a7d54af0bf980"
 dependencies = [
  "typenum",
+ "version_check",
 ]
 
 [[package]]
@@ -487,9 +489,9 @@ dependencies = [
 
 [[package]]
 name = "hermit-abi"
-version = "0.1.13"
+version = "0.1.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "91780f809e750b0a89f5544be56617ff6b1227ee485bcb06ebe10cdf89bd3b71"
+checksum = "b9586eedd4ce6b3c498bc3b4dd92fc9f11166aa908a914071953768066c67909"
 dependencies = [
  "libc",
 ]
@@ -512,7 +514,7 @@ checksum = "b9e0384b61958566e926dc50660321d12159025e767c18e043daf26b70104c39"
 [[package]]
 name = "imx6ul-pac"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#e5a5a5c9c9c22ee8f7d85b183dd66e3cde7802ce"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#692433d14609cdd5dfe3f3a89dbc9118a8c7398d"
 
 [[package]]
 name = "indexmap"
@@ -579,16 +581,25 @@ checksum = "3728d817d99e5ac407411fa471ff9800a778d88a24685968b36824eaf4bee400"
 [[package]]
 name = "memlog"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#e5a5a5c9c9c22ee8f7d85b183dd66e3cde7802ce"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#692433d14609cdd5dfe3f3a89dbc9118a8c7398d"
 dependencies = [
  "imx6ul-pac",
 ]
 
 [[package]]
-name = "object"
-version = "0.19.0"
+name = "miniz_oxide"
+version = "0.3.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9cbca9424c482ee628fa549d9c812e2cd22f1180b9222c9200fdfa6eb31aecb2"
+checksum = "791daaae1ed6889560f8c4359194f56648355540573244a5448a83ba1ecc7435"
+dependencies = [
+ "adler32",
+]
+
+[[package]]
+name = "object"
+version = "0.20.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1ab52be62400ca80aa00285d25253d7f7c437b7375c4de678f5405d3afe82ca5"
 
 [[package]]
 name = "opaque-debug"
@@ -608,7 +619,7 @@ dependencies = [
 [[package]]
 name = "panic-serial"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#e5a5a5c9c9c22ee8f7d85b183dd66e3cde7802ce"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#692433d14609cdd5dfe3f3a89dbc9118a8c7398d"
 dependencies = [
  "cortex-a",
  "usbarmory",
@@ -697,16 +708,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cabe4fa914dec5870285fa7f71f602645da47c486e68486d2b4ceb4a343e90ac"
 
 [[package]]
-name = "rtfm-core"
+name = "rtic-core"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9ec893edb2aa5b70320b94896ffea22a7ebb1cf3f942bb67cd5b60a865a63493"
+checksum = "ab51fe832317e805f869b3d859f91aadf855c2c3da51f9b84bc645c201597158"
 
 [[package]]
-name = "rtfm-syntax"
+name = "rtic-syntax"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4455e23c34df3d66454e7e218a4d76a7f83321d04a806be614463341cec4116e"
+checksum = "8152fcaa845720d61e6cc570548b89144c2c307f18a480bbd97e55e9f6eeff04"
 dependencies = [
  "indexmap",
  "proc-macro2",
@@ -768,9 +779,9 @@ checksum = "502d53007c02d7605a05df1c1a73ee436952781653da5d0bf57ad608f66932c1"
 
 [[package]]
 name = "syn"
-version = "1.0.30"
+version = "1.0.31"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "93a56fabc59dce20fe48b6c832cc249c713e7ed88fa28b0ee0a3bfcaae5fe4e2"
+checksum = "b5304cfdf27365b7585c25d4af91b35016ed21ef88f17ced89c7093b43dba8b6"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -803,9 +814,9 @@ checksum = "f764005d11ee5f36500a149ace24e00e3da98b0158b3e2d53a7495660d3f4d60"
 
 [[package]]
 name = "tar"
-version = "0.4.28"
+version = "0.4.29"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5c058ad0bd6ccb84faa24cc44d4fc99bee8a5d7ba9ff33aa4d993122d1aeeac2"
+checksum = "c8a4c1d0bee3230179544336c15eefb563cf0302955d962e456542323e8c2e8a"
 dependencies = [
  "filetime",
  "libc",
@@ -849,7 +860,7 @@ version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8326b2c654932e3e4f9196e69d08fdf7cfd718e1dc6f66b347e6024a0c961402"
 dependencies = [
- "generic-array 0.14.1",
+ "generic-array 0.14.2",
  "subtle",
 ]
 
@@ -862,7 +873,7 @@ checksum = "0e5e2b9ba23f0d9ef7a34e498b6581c9d67944a1916542bfc7238bf1dc0d6acd"
 [[package]]
 name = "usbarmory"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#e5a5a5c9c9c22ee8f7d85b183dd66e3cde7802ce"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#692433d14609cdd5dfe3f3a89dbc9118a8c7398d"
 dependencies = [
  "arrayref",
  "block-cipher",
@@ -883,7 +894,7 @@ dependencies = [
 [[package]]
 name = "usbarmory-rt"
 version = "0.0.0"
-source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#e5a5a5c9c9c22ee8f7d85b183dd66e3cde7802ce"
+source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#692433d14609cdd5dfe3f3a89dbc9118a8c7398d"
 dependencies = [
  "cortex-a",
  "imx6ul-pac",
@@ -899,9 +910,9 @@ checksum = "9fde2f6a4bea1d6e007c4ad38c6839fa71cbb63b6dbf5b595aa38dc9b1093c11"
 
 [[package]]
 name = "vcpkg"
-version = "0.2.9"
+version = "0.2.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "55d1e41d56121e07f1e223db0a4def204e45c85425f6a16d462fd07c8d10d74c"
+checksum = "6454029bf181f092ad1b853286f23e2c507d8e8194d01d92da4a55c274a5508c"
 
 [[package]]
 name = "veriform"
@@ -932,6 +943,12 @@ dependencies = [
  "syn",
  "synstructure",
 ]
+
+[[package]]
+name = "version_check"
+version = "0.9.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b5a972e5669d67ba988ce3dc826706fb0a8b01471c088cb0b6110b805cc36aed"
 
 [[package]]
 name = "vint64"
