@@ -17,7 +17,7 @@ keywords   = ["bls", "ed25519", "ecdsa", "hsm"]
 [dependencies]
 aes-gcm-siv = { version = "0.5", default-features = false, features = ["heapless"] }
 armistice_schema = { version = "0", path = "../schema" }
-block-cipher = "0.7"
+block-cipher = "0.8"
 displaydoc = { version = "0.1", default-features = false }
 ecdsa = { version = "0.6", optional = true, default-features = false, features = ["p256"] }
 heapless = "0.5"
