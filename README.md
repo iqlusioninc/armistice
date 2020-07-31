@@ -8,7 +8,7 @@ For a deeper dive into why we are hoping Armistice will become see [VISION.md].
 
 ## Minimum Supported Rust Version
 
-- Rust **1.42**
+- Rust **1.42+**
 
 ## Security Warning
 
