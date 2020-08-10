@@ -27,13 +27,13 @@ dependencies = [
 
 [[package]]
 name = "aes"
-version = "0.4.0"
+version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f7001367fde4c768a19d1029f0a8be5abd9308e1119846d5bd9ad26297b8faf5"
+checksum = "dd2bc6d3f370b5666245ff421e231cba4353df936e26986d2918e61a8fd6aef6"
 dependencies = [
  "aes-soft",
  "aesni",
- "block-cipher",
+ "block-cipher 0.8.0",
 ]
 
 [[package]]
@@ -43,7 +43,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d1a12c10cd2b4a69bca3be6c79f295b95d974599f488f992c0e9fa90f7ee5a7e"
 dependencies = [
  "aead",
- "block-cipher",
+ "block-cipher 0.7.1",
  "polyval",
  "subtle",
  "zeroize",
@@ -51,23 +51,23 @@ dependencies = [
 
 [[package]]
 name = "aes-soft"
-version = "0.4.0"
+version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4925647ee64e5056cf231608957ce7c81e12d6d6e316b9ce1404778cc1d35fa7"
+checksum = "63dd91889c49327ad7ef3b500fd1109dbd3c509a03db0d4a9ce413b79f575cb6"
 dependencies = [
- "block-cipher",
+ "block-cipher 0.8.0",
  "byteorder",
- "opaque-debug",
+ "opaque-debug 0.3.0",
 ]
 
 [[package]]
 name = "aesni"
-version = "0.7.0"
+version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d050d39b0b7688b3a3254394c3e30a9d66c41dcf9b05b0e2dbdc623f6505d264"
+checksum = "0a6fe808308bb07d393e2ea47780043ec47683fcf19cf5efc8ca51c50cc8c68a"
 dependencies = [
- "block-cipher",
- "opaque-debug",
+ "block-cipher 0.8.0",
+ "opaque-debug 0.3.0",
 ]
 
 [[package]]
@@ -107,7 +107,7 @@ dependencies = [
  "aes",
  "aes-gcm-siv",
  "armistice_schema",
- "block-cipher",
+ "block-cipher 0.7.1",
  "displaydoc",
  "ecdsa",
  "heapless",
@@ -201,6 +201,15 @@ name = "block-cipher"
 version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fa136449e765dc7faa244561ccae839c394048667929af599b5d931ebe7b7f10"
+dependencies = [
+ "generic-array 0.14.2",
+]
+
+[[package]]
+name = "block-cipher"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f337a3e6da609650eb74e02bc9fac7b735049f7623ab12f2e4c719316fcc7e80"
 dependencies = [
  "generic-array 0.14.2",
 ]
@@ -593,6 +602,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2839e79665f131bdb5782e51f2c6c9599c133c6098982a54c794358bf432529c"
 
 [[package]]
+name = "opaque-debug"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "624a8340c38c1b80fd549087862da4ba43e08858af025b236e509b6649fc13d5"
+
+[[package]]
 name = "p256"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -734,7 +749,7 @@ dependencies = [
  "block-buffer",
  "digest",
  "fake-simd",
- "opaque-debug",
+ "opaque-debug 0.2.3",
 ]
 
 [[package]]
@@ -860,7 +875,7 @@ version = "0.0.0"
 source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#692433d14609cdd5dfe3f3a89dbc9118a8c7398d"
 dependencies = [
  "arrayref",
- "block-cipher",
+ "block-cipher 0.7.1",
  "c-stubs",
  "consts",
  "cortex-a",
