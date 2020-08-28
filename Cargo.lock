@@ -711,9 +711,9 @@ dependencies = [
 
 [[package]]
 name = "rusb"
-version = "0.6.2"
+version = "0.6.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fac7576c07e31f5885d67ec09fd8509e4b730cea4266fecfe7f068f3a5d1f3b3"
+checksum = "327ba984f811d7e34f52f08b5745911ce89c432e1098879f2f8288c76a88aa0c"
 dependencies = [
  "libc",
  "libusb1-sys",
