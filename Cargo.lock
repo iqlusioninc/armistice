@@ -33,17 +33,17 @@ checksum = "f7001367fde4c768a19d1029f0a8be5abd9308e1119846d5bd9ad26297b8faf5"
 dependencies = [
  "aes-soft",
  "aesni",
- "block-cipher",
+ "block-cipher 0.7.1",
 ]
 
 [[package]]
 name = "aes-gcm-siv"
-version = "0.5.0"
+version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d1a12c10cd2b4a69bca3be6c79f295b95d974599f488f992c0e9fa90f7ee5a7e"
+checksum = "9566117f0a261d4b18323a6ba8f7e328ff98b4f416dc1d356b4130b9661ca922"
 dependencies = [
  "aead",
- "block-cipher",
+ "block-cipher 0.8.0",
  "polyval",
  "subtle",
  "zeroize",
@@ -55,7 +55,7 @@ version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4925647ee64e5056cf231608957ce7c81e12d6d6e316b9ce1404778cc1d35fa7"
 dependencies = [
- "block-cipher",
+ "block-cipher 0.7.1",
  "byteorder",
  "opaque-debug",
 ]
@@ -66,7 +66,7 @@ version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d050d39b0b7688b3a3254394c3e30a9d66c41dcf9b05b0e2dbdc623f6505d264"
 dependencies = [
- "block-cipher",
+ "block-cipher 0.7.1",
  "opaque-debug",
 ]
 
@@ -107,7 +107,7 @@ dependencies = [
  "aes",
  "aes-gcm-siv",
  "armistice_schema",
- "block-cipher",
+ "block-cipher 0.7.1",
  "displaydoc",
  "ecdsa",
  "heapless",
@@ -201,6 +201,15 @@ name = "block-cipher"
 version = "0.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fa136449e765dc7faa244561ccae839c394048667929af599b5d931ebe7b7f10"
+dependencies = [
+ "generic-array 0.14.2",
+]
+
+[[package]]
+name = "block-cipher"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f337a3e6da609650eb74e02bc9fac7b735049f7623ab12f2e4c719316fcc7e80"
 dependencies = [
  "generic-array 0.14.2",
 ]
@@ -860,7 +869,7 @@ version = "0.0.0"
 source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#692433d14609cdd5dfe3f3a89dbc9118a8c7398d"
 dependencies = [
  "arrayref",
- "block-cipher",
+ "block-cipher 0.7.1",
  "c-stubs",
  "consts",
  "cortex-a",
