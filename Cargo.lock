@@ -850,9 +850,9 @@ dependencies = [
 
 [[package]]
 name = "usb-device"
-version = "0.2.5"
+version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0e5e2b9ba23f0d9ef7a34e498b6581c9d67944a1916542bfc7238bf1dc0d6acd"
+checksum = "ca58f6d4fed910f27e7150180ea5dc491ae049a347e627e61b61058961e633eb"
 
 [[package]]
 name = "usbarmory"
