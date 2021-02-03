@@ -22,7 +22,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3672ba0d12aaf256aabcdab516ebed87b5cec4b602316d7a3035fac9b7a9567b"
 dependencies = [
  "generic-array 0.14.2",
- "heapless",
+ "heapless 0.5.6",
 ]
 
 [[package]]
@@ -110,7 +110,7 @@ dependencies = [
  "block-cipher",
  "displaydoc",
  "ecdsa",
- "heapless",
+ "heapless 0.6.0",
 ]
 
 [[package]]
@@ -118,7 +118,7 @@ name = "armistice_schema"
 version = "0.0.0"
 dependencies = [
  "env_logger",
- "heapless",
+ "heapless 0.6.0",
  "veriform",
 ]
 
@@ -130,7 +130,7 @@ dependencies = [
  "consts",
  "cortex-a-rtic",
  "exception-reset",
- "heapless",
+ "heapless 0.6.0",
  "panic-serial",
  "usb-device",
  "usbarmory",
@@ -144,12 +144,13 @@ checksum = "a4c527152e37cf757a3f78aae5a06fbeefdb07ccc535c980a3208ee3060dd544"
 
 [[package]]
 name = "as-slice"
-version = "0.1.3"
+version = "0.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "37dfb65bc03b2bc85ee827004f14a6817e04160e3b1a28931986a666a9290e70"
+checksum = "bb4d1c23475b74e3672afa8c2be22040b8b7783ad9b461021144ed10a46bb0e6"
 dependencies = [
  "generic-array 0.12.3",
  "generic-array 0.13.2",
+ "generic-array 0.14.2",
  "stable_deref_trait",
 ]
 
@@ -263,7 +264,7 @@ source = "git+https://github.com/iqlusioninc/usbarmory.rs.git?branch=develop#692
 dependencies = [
  "cortex-a",
  "cortex-a-rtic-macros",
- "heapless",
+ "heapless 0.5.6",
  "imx6ul-pac",
  "rtic-core",
  "usbarmory-rt",
@@ -462,12 +463,24 @@ dependencies = [
 
 [[package]]
 name = "heapless"
-version = "0.5.5"
+version = "0.5.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "73a8a2391a3bc70b31f60e7a90daa5755a360559c0b6b9c5cfc0fee482362dc0"
+checksum = "74911a68a1658cfcfb61bc0ccfbd536e3b6e906f8c2f7883ee50157e3e2184f1"
 dependencies = [
  "as-slice",
  "generic-array 0.13.2",
+ "hash32",
+ "stable_deref_trait",
+]
+
+[[package]]
+name = "heapless"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "efb22866f8416bc2b65389ebcb8b48e1be541650c44063ea1288d04bcf903808"
+dependencies = [
+ "as-slice",
+ "generic-array 0.14.2",
  "hash32",
  "stable_deref_trait",
 ]
@@ -865,7 +878,7 @@ dependencies = [
  "consts",
  "cortex-a",
  "digest",
- "heapless",
+ "heapless 0.5.6",
  "imx6ul-pac",
  "memlog",
  "rand_core",
@@ -906,7 +919,7 @@ checksum = "c85788e7c9afe08a8691e1658749e0a92752f3ecbc631146643f073efcc5953f"
 dependencies = [
  "digest",
  "displaydoc",
- "heapless",
+ "heapless 0.5.6",
  "log",
  "sha2",
  "tai64",
