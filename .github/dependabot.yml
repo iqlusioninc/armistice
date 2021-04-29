@@ -1,0 +1,26 @@
+version: 2
+updates:
+- package-ecosystem: cargo
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "13:00"
+  open-pull-requests-limit: 10
+  target-branch: develop
+  ignore:
+  - dependency-name: displaydoc
+    versions:
+    - 0.1.7
+    - 0.2.0
+  - dependency-name: rusb
+    versions:
+    - 0.7.0
+  - dependency-name: env_logger
+    versions:
+    - 0.8.2
+  - dependency-name: usb-device
+    versions:
+    - 0.2.7
+  - dependency-name: heapless
+    versions:
+    - 0.5.6
