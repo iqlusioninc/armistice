@@ -12,7 +12,7 @@ categories = ["cryptography", "hardware-support"]
 keywords   = ["bls", "ed25519", "ecdsa", "hsm"]
 
 [dependencies]
-heapless = "0.5"
+heapless = "0.7"
 
 [dependencies.veriform]
 version = "0.2"
