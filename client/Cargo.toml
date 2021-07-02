@@ -18,7 +18,7 @@ keywords   = ["bls", "ed25519", "ecdsa", "hsm"]
 anomaly = "0.2"
 armistice_schema = { version = "0", path = "../schema" }
 consts = { optional = true, git = "https://github.com/iqlusioninc/usbarmory.rs.git", branch = "develop" }
-displaydoc = { version = "0.1", default-features = false }
+displaydoc = { version = "0.2", default-features = false }
 rusb = { version = "0.6", optional = true }
 veriform = "0.2"
 
